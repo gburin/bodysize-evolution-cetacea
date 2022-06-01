@@ -1,0 +1,443 @@
+---
+title: "Phylogenetic Imputation"
+output:
+  pdf_document:
+    toc: true
+---
+
+```{r setup, message = FALSE, warning = FALSE}
+
+if(!require("ape")){install.packages("ape")};library("ape")
+if(!require("phytools")){install.packages("phytools")};library("phytools")
+if(!require("remotes")){install.packages("remotes")};library("remotes")
+if(!require("bayou")){install_github("uyedaj/bayou", upgrade = "never")};library("bayou")
+if(!require("Rphylopars")){install.packages("Rphylopars")};library("Rphylopars")
+if(!require("ggplot2")){install.packages("ggplot2")};library("ggplot2")
+## if(!require("here")){install.packages("here")};library("here")
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, fig.width = 20, fig.height = 15)
+
+here::i_am("docs/phylo_imputation_2022.Rmd")
+
+## slater.tree <- read.tree(here::here("data/safe_crowngroup_noanc.tre"))
+slater.tree <- read.tree(here::here("data/final_tree_cetacea.tre"))
+fulldata <- read.csv(here::here("data/data_imputation.csv"), na.strings = "NA")
+fulldata$species[grep("Kekenodon", fulldata$species)] <- "Kekenodon_onamata"
+fulldata <- fulldata[-grep("_cf", fulldata$species), ]
+fulldata <- fulldata[-grep("_indet", fulldata$species), ]
+fulldata <- fulldata[-c(grep("_sp$", fulldata$species), grep("_sp[^i]", fulldata$species)), ]
+
+## Fixing name mismatch between tree and data
+fulldata$species[grep("Eodelphis_kabatensis", fulldata$species)] <- "Eodelphinus_kabatensis"
+fulldata$species[grep("Rodhocetus_kasrani", fulldata$species)] <- "Rodhocetus_kasranii"
+fulldata$species[grep("Lagenorhynchus_obliquidens", fulldata$species)] <- "Sagmatias_obliquidens"
+fulldata[nrow(fulldata) + 1, ] <- NA
+## Tursiops australis is missing from data, so we will imput it solely from phylogeny
+fulldata[nrow(fulldata), 1] <- "Tursiops_australis"
+fulldata[nrow(fulldata), ncol(fulldata)] <- "extant"
+rownames(fulldata) <- NULL
+
+logdata <- fulldata[, -ncol(fulldata)]
+logdata[, 2:ncol(logdata)] <- log10(logdata[, 2:ncol(logdata)])
+
+## Using fuzzy matching to check for typos in species names
+library("stringdist")
+dist.name <- adist(unique(logdata$species), slater.tree$tip.label, partial = TRUE, ignore.case = TRUE)
+min.name <- apply(dist.name, 1, min)
+
+match.names <- c()
+for(i in 1:nrow(dist.name)){
+    s2.i <- match(min.name[i], dist.name[i,])
+    s1.i <- i
+    match.names <- rbind(data.frame(s2.i = s2.i, s1.i = s1.i, s2name = slater.tree$tip.label[s2.i], s1name = unique(logdata$species)[s1.i], adist = min.name[i]), match.names)
+}
+
+sp.to.change.data <- match.names$s1name[match.names$adist == 1]
+for(i in 1:length(sp.to.change.data)){
+    logdata$species[which(!is.na(match(logdata$species, sp.to.change.data[i])))] <- match.names$s2name[match.names$s1name == sp.to.change.data[i]]
+}
+
+slater.tree.pruned <- drop.tip(slater.tree, slater.tree$tip.label[!(slater.tree$tip.label %in% unique(logdata$species))])
+
+slater.tree.imput <- slater.tree.pruned
+baleen.tree <- extract.clade(slater.tree.imput, getMRCA(slater.tree.imput, c("Mystacodon_selenensis", "Aetiocetus_polydentatus")))
+toothed.tree <- extract.clade(slater.tree.imput, getMRCA(slater.tree.imput, c("Ashleycetus_planicapitis", "Delphinus_capensis")))
+extant.tree <- drop.fossil(slater.tree)
+
+logdata.clean <- logdata[logdata$species %in% slater.tree.imput$tip.label, ]
+logdata.clean.baleen <- logdata[logdata$species %in% baleen.tree$tip.label, ]
+logdata.clean.toothed <- logdata[logdata$species %in% toothed.tree$tip.label, ]
+logdata.extant <- logdata[logdata$species %in% extant.tree$tip.label, ]
+
+```
+
+# Distribution of body sizes (living and extinct - histograms)
+
+```{r living_bs_hist, fig.cap = "Figure 1: Distribution of total length of extant and fossil species in the database."}
+
+sp.with.data <- logdata[!is.na(logdata$tl),]
+sp.with.data.tl <- setNames(as.data.frame(aggregate(sp.with.data$tl, by = list(sp.with.data$species), FUN = mean)), c("species", "length"))
+
+sp.with.data.tl$status <- "Extant"
+sp.with.data.tl$status[is.na(match(sp.with.data.tl$species, extant.tree$tip.label))] <- "Fossil"
+
+hist.by.status <- ggplot(data = sp.with.data.tl) +
+    geom_histogram(aes(x = length, fill = status, colour = status), alpha = 0.5) +
+    scale_colour_brewer(palette = "Set1") +
+    scale_fill_brewer(palette = "Set1") +
+    labs(x = "log(Total Length)", y = "Frequency") +
+    facet_wrap(status ~ ., nrow = 3) +
+    theme(legend.position = "none",
+          axis.text.x = element_text(size = 10),
+          axis.text.y = element_text(size = 10))
+
+hist.full <- ggplot(data = sp.with.data.tl) +
+    geom_histogram(aes(x = length), alpha = 0.5, fill = RColorBrewer::brewer.pal(3, "Set1")[3], colour = RColorBrewer::brewer.pal(3, "Set1")[3]) +
+    scale_colour_brewer(palette = "Set1") +
+    scale_fill_brewer(palette = "Set1") +
+    labs(x = "log(Total Length)", y = "Frequency") +
+    #facet_wrap(status ~ ., nrow = 3) +
+    theme(legend.position = "none",
+          axis.text.x = element_text(size = 10),
+          axis.text.y = element_text(size = 10))
+
+(hist.by.status / hist.full) +
+    plot_layout(heights = c(0.6, 0.3))
+
+ggsave(here::here("output/histograms_tl.pdf"), width = 75, height = 130, units = "mm")
+
+```
+
+## Removing subsets of species to compare imputation results
+
+## Random species (including fossil)
+
+On the second set, we randomly removed 10%, 20%, and 50% of all species which had empirical total length values (including extant and extinct species). On the same set, we also dropped all fossil species with total length values, leaving only the extant taxa.
+
+```{r rarefied_imputation_random, eval = FALSE}
+
+sp.with.tl <- unique(logdata.clean$species[!is.na(logdata.clean$tl)])
+
+tips.to.drop.10 <- sample(sp.with.tl, floor(0.1 * length(sp.with.tl)))
+tips.to.drop.20 <- sample(sp.with.tl, floor(0.2 * length(sp.with.tl)))
+tips.to.drop.50 <- sample(sp.with.tl, floor(0.5 * length(sp.with.tl)))
+tips.to.drop.nofossil <- sp.with.tl[(sp.with.tl %in% drop.fossil(slater.tree)$tip.label) == FALSE]
+
+data.10.drop <- logdata.clean
+data.10.drop$tl[!is.na(match(logdata.clean$species, tips.to.drop.10))] <- NA
+data.20.drop <- logdata.clean
+data.20.drop$tl[!is.na(match(logdata.clean$species, tips.to.drop.20))] <- NA
+data.50.drop <- logdata.clean
+data.50.drop$tl[!is.na(match(logdata.clean$species, tips.to.drop.50))] <- NA
+data.nofossil <- logdata.clean
+data.nofossil$tl[!is.na(match(logdata.clean$species, tips.to.drop.nofossil))] <- NA
+
+slater.tree.imput$edge.length[which(slater.tree.imput$edge.length == 0)] <- slater.tree.imput$edge.length[which(slater.tree.imput$edge.length == 0)] + 0.001
+
+imput.10.drop <- phylopars(data.10.drop[data.10.drop$species %in% slater.tree.imput$tip.label,], slater.tree.imput, model = "BM", pheno_error = TRUE)
+saveRDS(imput.10.drop, file = here::here("output/imputation/imput_10perc_drop.RDS"))
+## imput.10.drop <- readRDS(here::here("output/imputation/imput_10perc_drop.RDS"))
+
+imput.20.drop <- phylopars(data.20.drop[data.20.drop$species %in% slater.tree.imput$tip.label,], slater.tree.imput, model = "BM", pheno_error = TRUE)
+saveRDS(imput.20.drop, file = here::here("output/imputation/imput_20perc_drop.RDS"))
+## imput.20.drop <- readRDS(here::here("output/imputation/imput_20perc_drop.RDS"))
+
+imput.50.drop <- phylopars(data.50.drop[data.50.drop$species %in% slater.tree.imput$tip.label,], slater.tree.imput, model = "BM", pheno_error = TRUE)
+saveRDS(imput.50.drop, file = here::here("output/imputation/imput_50perc_drop.RDS"))
+## imput.50.drop <- readRDS(here::here("output/imputation/imput_50perc_drop.RDS"))
+
+imput.nofossil <- phylopars(data.nofossil[data.nofossil$species %in% slater.tree.imput$tip.label,], slater.tree.imput, model = "BM", pheno_error = TRUE)
+saveRDS(imput.nofossil, file = here::here("output/imputation/imput_nofossil.RDS"))
+## imput.nofossil <- readRDS(here::here("output/imputation/imput_nofossil.RDS"))
+
+compare.10.drop <- data.frame(
+    species = tips.to.drop.10,
+    full = logdata.clean$tl[match(tips.to.drop.10, logdata.clean$species)],
+    drop10 = setNames(imput.10.drop$anc_recon[match(tips.to.drop.10, rownames(imput.10.drop$anc_recon)), 1], NULL)
+)
+
+saveRDS(compare.10.drop, file = here::here("output/imputation/imput_random_10perc_drop.RDS"))
+
+compare.20.drop <- data.frame(
+    species = tips.to.drop.20,
+    full = logdata.clean$tl[match(tips.to.drop.20, logdata.clean$species)],
+    drop20 = setNames(imput.20.drop$anc_recon[match(tips.to.drop.20, rownames(imput.20.drop$anc_recon)), 1], NULL)
+)
+
+saveRDS(compare.20.drop, file = here::here("output/imputation/imput_random_20perc_drop.RDS"))
+
+compare.50.drop <- data.frame(
+    species = tips.to.drop.50,
+    full = logdata.clean$tl[match(tips.to.drop.50, logdata.clean$species)],
+    drop50 = setNames(imput.50.drop$anc_recon[match(tips.to.drop.50, rownames(imput.50.drop$anc_recon)), 1], NULL)
+)
+
+saveRDS(compare.50.drop, file = here::here("output/imputation/imput_random_50perc_drop.RDS"))
+
+compare.nofossil.drop <- data.frame(
+    species = tips.to.drop.nofossil,
+    full = logdata.clean$tl[match(tips.to.drop.nofossil, logdata.clean$species)],
+    dropfossil = setNames(imput.nofossil$anc_recon[match(tips.to.drop.nofossil, rownames(imput.nofossil$anc_recon)), 1], NULL)
+)
+
+saveRDS(compare.nofossil.drop, file = here::here("output/imputation/imput_random_nofossil_drop.RDS"))
+
+save.image(file = here::here("output/imputation/fulldata_drop.RData"))
+
+```
+
+```{r rarefied_imputation_random_plots, warning = FALSE, eval = FALSE}
+
+compare.10.drop <- readRDS(here::here("output/imputation/imput_random_10perc_drop.RDS"))
+compare.20.drop <- readRDS(here::here("output/imputation/imput_random_20perc_drop.RDS"))
+compare.50.drop <- readRDS(here::here("output/imputation/imput_random_50perc_drop.RDS"))
+compare.nofossil.drop <- readRDS(here::here("output/imputation/imput_random_nofossil_drop.RDS"))
+
+plot10drop <-
+    ggplot(compare.10.drop) +
+    geom_point(aes(x = full, y = drop10), size = 3, alpha = 0.75) +
+    geom_abline(intercept = 0, slope = 1, colour = "red", linetype = "dashed", alpha = 0.5, size = 1.5) +
+    #geom_text_repel(aes(x = full, y = drop10, label = species), size = 4) +
+    labs(x = "Empirical", y = "Imputed") +
+    theme_cowplot() +
+    theme(axis.text.x = element_text(size = 14),
+          axis.text.y = element_text(size = 14))
+
+ggsave(plot = plot10drop, filename = here::here("output/imputation/random_drop10.pdf"), width = 5, height = 5, units = "in")
+
+plot20drop <-
+    ggplot(compare.20.drop) +
+    geom_point(aes(x = full, y = drop20), size = 3, alpha = 0.75) +
+    geom_abline(intercept = 0, slope = 1, colour = "red", linetype = "dashed", alpha = 0.5, size = 1.5) +
+    #geom_text_repel(aes(x = full, y = drop20, label = species), size = 4) +
+    labs(x = "Empirical", y = "Imputed") +
+    theme_cowplot() +
+    theme(axis.text.x = element_text(size = 14),
+          axis.text.y = element_text(size = 14))
+
+ggsave(plot = plot20drop, filename = here::here("output/imputation/random_drop20.pdf"), width = 5, height = 5, units = "in")
+
+plot50drop <-
+    ggplot(compare.50.drop) +
+    geom_point(aes(x = full, y = drop50), size = 3, alpha = 0.75) +
+    geom_abline(intercept = 0, slope = 1, colour = "red", linetype = "dashed", alpha = 0.5, size = 1.5) +
+    #geom_text_repel(aes(x = full, y = drop50, label = species), max.overlaps = 25, size = 4) +
+    labs(x = "Empirical", y = "Imputed") +
+    theme_cowplot() +
+    theme(axis.text.x = element_text(size = 14),
+          axis.text.y = element_text(size = 14))
+
+ggsave(plot = plot50drop, filename = here::here("output/imputation/random_drop50.pdf"), width = 5, height = 5, units = "in")
+
+plotnofossil <-
+    ggplot(compare.nofossil.drop) +
+    geom_point(aes(x = full, y = dropfossil), size = 3, alpha = 0.75) +
+    geom_abline(intercept = 0, slope = 1, colour = "red", linetype = "dashed", alpha = 0.5, size = 1.5) +
+    #geom_text_repel(aes(x = full, y = dropfossil, label = species), size = 4) +
+    labs(x = "Empirical", y = "Imputed") +
+    theme_cowplot() +
+    theme(axis.text.x = element_text(size = 14),
+          axis.text.y = element_text(size = 14))
+
+ggsave(plot = plotnofossil, filename = here::here("output/imputation/random_dropnofossil.pdf"), width = 5, height = 5, units = "in")
+
+((plot10drop | plot20drop) / (plot50drop | plotnofossil)) +
+    plot_annotation(tag_levels = "A")
+
+## summary(lm(drop10 ~ full, data = compare.10.drop))
+## summary(lm(drop20 ~ full, data = compare.20.drop))
+## summary(lm(drop50 ~ full, data = compare.50.drop))
+## summary(lm(dropfossil ~ full, data = compare.nofossil.drop))
+
+```
+
+# Estimating normalized root mean square error
+
+```{r eval = FALSE}
+
+doMC::registerDoMC(12)
+
+vars.err <- names(logdata.clean)[3:ncol(logdata.clean)]
+
+# Removing one ancillary measurement
+
+foreach(i = 1:length(vars.err)) %dopar% {
+    print(paste("Removing:" , vars.err[i], sep = " "))
+    assign(paste0("imput.err.", vars.err[i]), phylopars(logdata.clean[, -(i + 2)], slater.tree, model = "BM", pheno_error = TRUE))
+    saveRDS(get(paste0("imput.err.", vars.err[i])), file = here::here(paste0("output/imput_err_", vars.err[i], ".RDS")))
+    }
+
+# Removing two ancillary measurements
+
+vars.pairs <- t(combn(1:length(vars.err), 2))
+
+foreach(i = 1:nrow(vars.pairs)) %dopar% {
+    print(paste("Removing:", vars.err[vars.pairs[i, 1:ncol(vars.pairs)]]), sep = "_")
+    assign(paste0("imput.err.", paste0(vars.err[vars.pairs[i, 1:ncol(vars.pairs)]], collapse = ".")), phylopars(logdata.clean[, -c(vars.pairs[i, 1:ncol(vars.pairs)] + 2)], slater.tree, model = "BM", pheno_error = TRUE))
+    saveRDS(get(paste0("imput.err.", paste0(vars.err[vars.pairs[i, 1:ncol(vars.pairs)]], collapse = "."))), file = here::here(paste0("output/imput_err_", paste0(vars.err[vars.pairs[i, 1:ncol(vars.pairs)]], collapse = "_"), ".RDS")))
+    }
+
+# Removing three ancillary measurements
+
+vars.triplets <- t(combn(1:length(vars.err), 3))
+
+foreach(i = 1:nrow(vars.triplets)) %dopar% {
+    print(paste("Removing:", vars.err[vars.triplets[i, 1:ncol(vars.triplets)]]), sep = " ")
+    assign(paste0("imput.err.", paste0(vars.err[vars.triplets[i, 1:ncol(vars.triplets)]], collapse = ".")), phylopars(logdata.clean[, -c(vars.triplets[i, 1:ncol(vars.triplets)] + 2)], slater.tree, model = "BM", pheno_error = TRUE))
+    saveRDS(get(paste0("imput.err.", paste0(vars.err[vars.triplets[i, 1:ncol(vars.triplets)]], collapse = "."))), file = here::here(paste0("output/imput_err_", paste0(vars.err[vars.triplets[i, 1:ncol(vars.triplets)]], collapse = "_"), ".RDS")))
+    }
+
+# Removing four ancillary measurements
+
+vars.quads <- t(combn(1:length(vars.err), 4))
+
+foreach(i = 1:nrow(vars.quads)) %dopar% {
+    print(paste("Removing:", vars.err[vars.quads[i, 1:ncol(vars.quads)]]), sep = " ")
+    assign(paste0("imput.err.", paste0(vars.err[vars.quads[i, 1:ncol(vars.quads)]], collapse = ".")), phylopars(logdata.clean[, -c(vars.quads[i, 1:ncol(vars.quads)] + 2)], slater.tree, model = "BM", pheno_error = TRUE))
+    saveRDS(get(paste0("imput.err.", paste0(vars.err[vars.quads[i, 1:ncol(vars.quads)]], collapse = "."))), file = here::here(paste0("output/imput_err_", paste0(vars.err[vars.quads[i, 1:ncol(vars.quads)]], collapse = "_"), ".RDS")))
+    }
+
+# Removing five ancillary measurements
+
+vars.fifths <- t(combn(1:length(vars.err), 5))
+
+foreach(i = 1:nrow(vars.fifths)) %dopar% {
+    print(paste("Removing:", vars.err[vars.fifths[i, 1:ncol(vars.fifths)]]), sep = " ")
+    assign(paste0("imput.err.", paste0(vars.err[vars.fifths[i, 1:ncol(vars.fifths)]], collapse = ".")), phylopars(logdata.clean[, -c(vars.fifths[i, 1:ncol(vars.fifths)] + 2)], slater.tree, model = "BM", pheno_error = TRUE))
+    saveRDS(get(paste0("imput.err.", paste0(vars.err[vars.fifths[i, 1:ncol(vars.fifths)]], collapse = "."))), file = here::here(paste0("output/imput_err_", paste0(vars.err[vars.fifths[i, 1:ncol(vars.fifths)]], collapse = "_"), ".RDS")))
+    }
+
+# Removing six ancillary measurements
+
+vars.sixths <- t(combn(1:length(vars.err), 6))
+
+foreach(i = 1:nrow(vars.sixths)) %dopar% {
+    print(paste("Removing:", vars.err[vars.sixths[i, 1:ncol(vars.sixths)]]), sep = " ")
+    assign(paste0("imput.err.", paste0(vars.err[vars.sixths[i, 1:ncol(vars.sixths)]], collapse = ".")), phylopars(logdata.clean[, -c(vars.sixths[i, 1:ncol(vars.sixths)] + 2)], slater.tree, model = "BM", pheno_error = TRUE))
+    saveRDS(get(paste0("imput.err.", paste0(vars.err[vars.sixths[i, 1:ncol(vars.sixths)]], collapse = "."))), file = here::here(paste0("output/imput_err_", paste0(vars.err[vars.sixths[i, 1:ncol(vars.sixths)]], collapse = "_"), ".RDS")))
+    }
+
+# Removing seven ancillary measurements
+
+vars.sevenths <- t(combn(1:length(vars.err), 7))
+
+foreach(i = 1:nrow(vars.sevenths)) %dopar% {
+    print(paste("Removing:", vars.err[vars.sevenths[i, 1:ncol(vars.sevenths)]]), sep = " ")
+    assign(paste0("imput.err.", paste0(vars.err[vars.sevenths[i, 1:ncol(vars.sevenths)]], collapse = ".")), phylopars(logdata.clean[, -c(vars.sevenths[i, 1:ncol(vars.sevenths)] + 2)], slater.tree, model = "BM", pheno_error = TRUE))
+    saveRDS(get(paste0("imput.err.", paste0(vars.err[vars.sevenths[i, 1:ncol(vars.sevenths)]], collapse = "."))), file = here::here(paste0("output/imput_err_", paste0(vars.err[vars.sevenths[i, 1:ncol(vars.sevenths)]], collapse = "_"), ".RDS")))
+    }
+
+# Removing six ancillary measurements
+
+vars.eights <- t(combn(1:length(vars.err), 8))
+
+foreach(i = 1:nrow(vars.eights)) %dopar% {
+    print(paste("Removing:", vars.err[vars.eights[i, 1:ncol(vars.eights)]]), sep = " ")
+    assign(paste0("imput.err.", paste0(vars.err[vars.eights[i, 1:ncol(vars.eights)]], collapse = ".")), phylopars(logdata.clean[, -c(vars.eights[i, 1:ncol(vars.eights)] + 2)], slater.tree, model = "BM", pheno_error = TRUE))
+    saveRDS(get(paste0("imput.err.", paste0(vars.err[vars.eights[i, 1:ncol(vars.eights)]], collapse = "."))), file = here::here(paste0("output/imput_err_", paste0(vars.err[vars.eights[i, 1:ncol(vars.eights)]], collapse = "_"), ".RDS")))
+    }
+ 
+```
+
+```{r echo = FALSE}
+
+imperr.files <- list.files(here::here("output/imputation_results/"), pattern = "imput_err")
+for(i in 1:length(imperr.files)){
+    assign(gsub("_", ".", gsub(".RDS", "", imperr.files[i])), tryCatch(readRDS(here::here("output/imputation_results/", imperr.files[i]))$anc_recon, error = function(x){NA}))
+}
+
+data.for.error.calc <- sp.with.data.tl[, -3]
+
+failed.vars <- c()
+
+for(i in 1:length(ls(pattern = "imput.err"))){
+    #print(i)
+    temp <- get(ls(pattern = "imput.err")[i])
+    if(!all(is.na(temp))){
+        temp <- temp[order(rownames(temp)),]
+        temp <- temp[rownames(temp) %in% sp.with.data.tl$species,]
+        data.for.error.calc[match(rownames(temp), data.for.error.calc$species), i + 2] <- temp[, 1]
+    } else {
+        data.for.error.calc[, i + 2] <- NA
+        failed.vars <- c(failed.vars, i)
+    }
+}
+
+names(data.for.error.calc)[3:ncol(data.for.error.calc)] <- gsub("imput.err.", "", ls(pattern = "imput.err"))
+
+data.for.error.calc <- data.for.error.calc[-which(is.na(data.for.error.calc[, 3])),]
+
+data.for.error.calc <- data.for.error.calc[, -(failed.vars + 2)]
+
+## Identifying columns with the different number of grouped measurements
+comb.set <- sapply(strsplit(names(data.for.error.calc)[3:ncol(data.for.error.calc)], split = ".", fixed = TRUE), length)
+
+## Single measurements
+data.for.error.calc.single <- data.for.error.calc[, c(2, which(comb.set == 1) + 2)]
+
+## Two measurements
+data.for.error.calc.pairs <- data.for.error.calc[, c(2, which(comb.set == 2) + 2)]
+data.for.error.calc.pairs <- data.for.error.calc.pairs[, -2] # aafw.hl with weird values
+
+## Three measurements
+data.for.error.calc.trip <- data.for.error.calc[, c(2, which(comb.set == 3) + 2)]
+
+## Four measurements
+data.for.error.calc.quad <- data.for.error.calc[, c(2, which(comb.set == 4) + 2)]
+## data.for.error.calc.quad <- data.for.error.calc.quad[, -which(names(data.for.error.calc.quad) == "cbl.exoc.aon.bnw")] ## Removed cbl.exoc.aon.bnw due to weird results (-4.965763e+19 for all species)
+
+## Five measurements
+data.for.error.calc.quint <- data.for.error.calc[, c(2, which(comb.set == 5) + 2)]
+
+## Six measurements
+data.for.error.calc.sext <- data.for.error.calc[, c(2, which(comb.set == 6) + 2)]
+
+## Seven measurements
+data.for.error.calc.sept <- data.for.error.calc[, c(2, which(comb.set == 7) + 2)]
+
+## Eigth measurements
+data.for.error.calc.oct <- data.for.error.calc[, c(2, which(comb.set == 8) + 2)]
+
+nrmse <- function(x){(sqrt(sum((x[, 2:ncol(x)] - x[, 1])^2)/nrow(x)))/(diff(range(x[,1])))}
+
+print(paste0("Mean of Normalized Root Mean Standard Error = ",
+             round(mean(c(nrmse(data.for.error.calc.single),
+                          nrmse(data.for.error.calc.pairs),
+                          nrmse(data.for.error.calc.trip),
+                          nrmse(data.for.error.calc.quad),
+                          nrmse(data.for.error.calc.quint),
+                          nrmse(data.for.error.calc.sext),
+                          nrmse(data.for.error.calc.sept),
+                          nrmse(data.for.error.calc.oct)),
+                        na.rm = TRUE
+                        ), 4)))
+
+print(paste0("Standard Deviation of Normalized Root Mean Standard Error = ", round(sd(c(nrmse(data.for.error.calc.single),
+     nrmse(data.for.error.calc.pairs),
+     nrmse(data.for.error.calc.trip),
+     nrmse(data.for.error.calc.quad),
+     nrmse(data.for.error.calc.quint),
+     nrmse(data.for.error.calc.sext),
+     nrmse(data.for.error.calc.sept),
+     nrmse(data.for.error.calc.oct))
+   ), 4)))
+
+```
+
+```{r echo = FALSE, fig.cap = "Normalized Root Mean Square Error calculated for all possible combinations of missing measurements. Average NRMSE = 0.1031", eval = FALSE, include = FALSE}
+
+ggplot(data = data.frame(n.measur = 1:8,
+                         nrmse = c(nrmse(data.for.error.calc.single),
+                                   nrmse(data.for.error.calc.pairs),
+                                   nrmse(data.for.error.calc.trip),
+                                   nrmse(data.for.error.calc.quad),
+                                   nrmse(data.for.error.calc.quint),
+                                   nrmse(data.for.error.calc.sext),
+                                   nrmse(data.for.error.calc.sept),
+                                   nrmse(data.for.error.calc.oct)))
+       ) +
+    geom_col(aes(x = factor(n.measur), y = nrmse)) +
+    geom_hline(aes(yintercept = mean(nrmse)), linetype = "dashed", size = 1, colour = "red", alpha = 0.5) +
+    labs(x = "Number of Missing Measurements", y = "Normalized Root Mean Squared Error") +
+    theme_cowplot()
+
+```
