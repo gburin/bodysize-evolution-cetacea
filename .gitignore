@@ -37,3 +37,10 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+
+# Emacs backup files
+*~
+
+# Log files from server runs
+*.err
