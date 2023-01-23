@@ -31,4 +31,4 @@ The analysis code is divided into subfolders, one for each dataset used. The res
 ## Other folders
 
 * `output/figs_manuscript` contains the main figures
-* `bayou_sensitivity_figs` contains the compiled ![PDF](https://github.com/gburin/bodysize-evolution-cetacea/tree/master/bayou_sensitivity_figs/sensitivity_figures.pdf) and individual figures with the results for the _bayou_ sensitivity analyses
+* `bayou_sensitivity_figs` contains the compiled [PDF](https://github.com/gburin/bodysize-evolution-cetacea/raw/master/bayou_sensitivity_figs/sensitivity_figures.pdf) and individual figures with the results for the _bayou_ sensitivity analyses
