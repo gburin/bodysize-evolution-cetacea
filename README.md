@@ -1,6 +1,6 @@
 # The dynamic adaptive landscape of cetacean body size
 
-Authors: [Gustavo Burin\*](gustavo.burin@nhm.ac.uk), Travis Park\*, Tamora D. James, Graham J. Slater, [Natalie Cooper](natalie.cooper@nhm.ac.uk)
+Authors: [Gustavo Burin\*](mailto:gustavo.burin@nhm.ac.uk), [Travis Park\*](mailto:t.park@nhm.ac.uk), Tamora D. James, Graham J. Slater, [Natalie Cooper](mailto:natalie.cooper@nhm.ac.uk)
 
 [*] These authors contributed equally to this work
 
