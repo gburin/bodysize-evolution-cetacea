@@ -1,8 +1,3 @@
----
-# Build settings
-theme: slate
----
-
 # The dynamic adaptive landscape of cetacean body size
 
 Authors: [Gustavo Burin\*](gustavo.burin@nhm.ac.uk), Travis Park\*, Tamora D. James, Graham J. Slater, [Natalie Cooper](natalie.cooper@nhm.ac.uk)
@@ -36,3 +31,4 @@ The analysis code is divided into subfolders, one for each dataset used. The res
 ## Other folders
 
 * `output/figs_manuscript` contains the main figures
+* `bayou_sensitivity_figs` contains the compiled ![PDF](https://github.com/gburin/bodysize-evolution-cetacea/tree/master/bayou_sensitivity_figs/sensitivity_figures.pdf) and individual figures with the results for the _bayou_ sensitivity analyses

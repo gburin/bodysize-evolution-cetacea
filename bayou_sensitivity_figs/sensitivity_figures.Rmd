@@ -1,0 +1,1786 @@
+---
+title             : "The dynamic adaptive landscape of cetacean body size"
+shorttitle        : "BodySizeCetacea"
+author            : "Gustavo Burin*, Travis Park*, Tamora James, Graham Slater, Natalie Cooper"
+date              : "`r Sys.Date()`"
+graphics: yes
+output: 
+  pdf_document    :
+    toc: false
+linkcolor         : blue
+---
+
+\pagenumbering{gobble}
+
+```{r setup, echo = FALSE, cache = TRUE}
+
+library("patchwork")
+library("MetBrewer")
+library("here")
+library("bayou")
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE, fig.height = 30, fig.width = 15)
+
+here::i_am("bayou_sensitivity_figs/sensitivity_figures.Rmd")
+source(here::here("R/plotting_functions.R"))
+
+```
+
+```{r import-data, echo = FALSE, cache = FALSE, eval = FALSE}
+
+scenarios <- c("full", "noarchaeo", "noextant", "extant", "baleen", "toothed", "noimput")
+k <- c(5, 15, 50, 250, 500)
+
+## for(s in 1:length(scenarios)){
+##     for(j in 1:length(k)){
+##         print(paste(paste0(scenarios[s], "_wZBL"), paste0("k", k[j])))
+##         #tryCatch(source(here::here("R/bayou_analyses/", paste0(scenarios[s], "_wZBL"), paste0("bayou_", scenarios[s], "_wZBL_k", k[j], ".R"))), error = function(x){})
+##         tryCatch(eval(parse(text = paste0(paste0("chainOU.", scenarios[s], ".wZBL.k", k[j]), " <- mcmcOU.", scenarios[s], ".wZBL.k", k[j], "$load()"))), error = function(x){})
+##     }
+## }
+
+## for(s in 1:length(scenarios)){
+##     for(j in 1:length(k)){
+##         print(paste(paste0(scenarios[s]), paste0("k", k[j])))
+##         #tryCatch(source(here::here("R/bayou_analyses/", paste0(scenarios[s]), paste0("bayou_", scenarios[s], "_k", k[j], ".R"))), error = function(x){})
+##         tryCatch(eval(parse(text = paste0(paste0("chainOU.", scenarios[s], ".k", k[j]), " <- mcmcOU.", scenarios[s], ".k", k[j], "$load()"))), error = function(x){})
+##     }
+## }
+
+## for(i in 1:length(ls(pattern = "mcmcOU"))){
+##     print(i)
+##     temp <- strsplit(ls(pattern = "mcmcOU"), split = ".", fixed = TRUE)
+## assign(paste("theta", paste(temp[[i]][2:length(temp[[i]])], collapse = "."), sep = "."),
+##        get_branch_par(1:length(get(paste("chainOU", paste(temp[[i]][2:length(temp[[i]])], collapse = "."), sep = "."))$gen),
+##                       get(paste(temp[[i]], collapse = "."))$tree,
+##                       get(paste0("tl.", paste(temp[[i]][2:(ifelse(length(temp[[i]]) == 2, 2, length(temp[[i]]) - 1))], collapse = "."))),
+##                       get(paste("chainOU", paste(temp[[i]][2:length(temp[[i]])], collapse = "."), sep = ".")),
+##                       par = "theta",
+##                       stat = "median"))
+## assign(paste("hpd", paste(temp[[i]][2:length(temp[[i]])], collapse = "."), sep = "."),
+##        get_branch_par(1:length(get(paste("chainOU", paste(temp[[i]][2:length(temp[[i]])], collapse = "."), sep = "."))$gen),
+##                       get(paste(temp[[i]], collapse = "."))$tree,
+##                       get(paste0("tl.", paste(temp[[i]][2:(ifelse(length(temp[[i]]) == 2, 2, length(temp[[i]]) - 1))], collapse = "."))),
+##                       get(paste("chainOU", paste(temp[[i]][2:length(temp[[i]])], collapse = "."), sep = ".")),
+##                       par = "theta",
+##                       stat = "hpd"))
+##     assign(paste("posterior", paste(temp[[i]][2:length(temp[[i]])], collapse = "."), sep = "."),
+##            get_branch_par(1:length(get(paste("chainOU", paste(temp[[i]][2:length(temp[[i]])], collapse = "."), sep = "."))$gen),
+##                           get(paste(temp[[i]], collapse = "."))$tree,
+##                           get(paste0("tl.", paste(temp[[i]][2:(ifelse(length(temp[[i]]) == 2, 2, length(temp[[i]]) - 1))], collapse = "."))),
+##                           get(paste("chainOU", paste(temp[[i]][2:length(temp[[i]])], collapse = "."), sep = ".")),
+##                           par = "theta",
+##                           stat = "dist"))
+## }
+
+## save(list = ls(pattern = "chainOU."), file = here::here("output/bayou/chains/all_chains.RData"))
+## save(list = ls(pattern = "mcmcOU."), file = here::here("output/bayou/chains/all_chains.RData"))
+## save(list = ls(pattern = "theta."), file = here::here("output/bayou/chains/theta_per_branch.RData"))
+## save(list = ls(pattern = "hpd."), file = here::here("output/bayou/chains/theta_hpd_per_branch.RData"))
+
+load(here::here("output/bayou/chains/all_chains.RData"))
+load(here::here("output/bayou/chains/all_mcmc.RData"))
+load(here::here("output/bayou/chains/all_tl.RData"))
+load(here::here("output/bayou/chains/theta_per_branch.RData"))
+load(here::here("output/bayou/chains/theta_hpd_per_branch.RData"))
+
+```
+
+
+<!-- # Including species with ZBL -->
+<!-- ## Full tree -->
+<!-- ### k = 5 -->
+
+```{r plots-full-wZBL-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'full' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+## par(mfrow = c(1, 2))
+## plot.shifts.coded(mcmcOU.full.wZBL.k15, burnin = 0.3, nshift = 15, pp.cutoff = 0.1, tiplab = TRUE, type = "fan", cex.lab = 0.01)
+
+plot.shifts.coded(mcmcOU.full.wZBL.k5, burnin = 0.3, nshift = 5, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+## par(mfrow = c(1, 1))
+## plotBranchHeatMap(mcmcOU.full.wZBL.k15$tree, chainOU.full.wZBL.k15, "theta", burnin = 0.3, pal = colorRampPalette(rev(RColorBrewer::brewer.pal(11, "Spectral"))), cex = 0.5, edge.width = 2);axisPhylo()
+
+```
+
+<!-- ```{r theta-full-wZBL-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'full' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.full.wZBL.k5, -->
+<!--                   theta.full.wZBL.k5, -->
+<!--                   #hpd = hpd.full.wZBL.k5, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 15 -->
+
+```{r plots-full-wZBL-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'full' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 15. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+#pdf(file = here("docs/figs/main_figs/full_wZBL_k15.pdf"), width = 15, height = 20)
+plot.shifts.coded(mcmcOU.full.wZBL.k15, burnin = 0.3, nshift = 15, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+#dev.off()
+
+## plotTree.barplot.match2(full.k15.map, tl.bayou, chain = chainOU.full.wZBL.k15, pal.pack = "met", pal = "VanGogh2", phy = mcmcOU.full.wZBL.k15$tree, edge.label = TRUE, circle = FALSE, prop = c(4, 1), pp.cutoff = 0.1)
+## dev.off()
+
+```
+
+<!-- ```{r theta-full-wZBL-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'full' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 15. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.full.wZBL.k15, -->
+<!--                   theta.full.wZBL.k15, -->
+<!--                   #hpd = hpd.full.wZBL.k15, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+
+<!-- ### k = 50 -->
+
+```{r plots-full-wZBL-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'full' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 50. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.full.wZBL.k50, burnin = 0.3, nshift = 50, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-full-wZBL-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'full' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 50. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.full.wZBL.k50, -->
+<!--                   theta.full.wZBL.k50, -->
+<!--                   #hpd = hpd.full.wZBL.k50, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 250 -->
+
+```{r plots-full-wZBL-k250, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'full' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 250. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.full.wZBL.k250, burnin = 0.3, nshift = 250, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-full-wZBL-k250, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'full' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 250. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.full.wZBL.k250, -->
+<!--                   theta.full.wZBL.k250, -->
+<!--                   #hpd = hpd.full.wZBL.k250, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 500 -->
+
+```{r plots-full-wZBL-k500, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'full' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 500. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.full.wZBL.k500, burnin = 0.3, nshift = 500, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-full-wZBL-k500, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'full' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 500. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.full.wZBL.k500, -->
+<!--                   theta.full.wZBL.k500, -->
+<!--                   #hpd = hpd.full.wZBL.k500, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ## Excluding Archaeoceti -->
+
+<!-- ### k = 5 -->
+
+```{r plots-noarchaeo-wZBL-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noarchaeo.wZBL.k5, burnin = 0.3, nshift = 5, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noarchaeo-wZBL-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noarchaeo.wZBL.k5, -->
+<!--                   theta.noarchaeo.wZBL.k5, -->
+<!--                   #hpd = hpd.noarchaeo.wZBL.k5, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 15 -->
+
+```{r plots-noarchaeo-wZBL-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 15. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noarchaeo.wZBL.k15, burnin = 0.3, nshift = 15, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noarchaeo-wZBL-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 15. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noarchaeo.wZBL.k15, -->
+<!--                   theta.noarchaeo.wZBL.k15, -->
+<!--                   #hpd = hpd.noarchaeo.wZBL.k15, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 50 -->
+
+```{r plots-noarchaeo-wZBL-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 50. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noarchaeo.wZBL.k50, burnin = 0.3, nshift = 50, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noarchaeo-wZBL-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 50. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noarchaeo.wZBL.k50, -->
+<!--                   theta.noarchaeo.wZBL.k50, -->
+<!--                   #hpd = hpd.noarchaeo.wZBL.k50, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 250 -->
+
+```{r plots-noarchaeo-wZBL-k250, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 250. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noarchaeo.wZBL.k250, burnin = 0.3, nshift = 250, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noarchaeo-wZBL-k250, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 250. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noarchaeo.wZBL.k250, -->
+<!--                   theta.noarchaeo.wZBL.k250, -->
+<!--                   #hpd = hpd.noarchaeo.wZBL.k250, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 500 -->
+
+```{r plots-noarchaeo-wZBL-k500, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 500. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noarchaeo.wZBL.k500, burnin = 0.3, nshift = 500, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noarchaeo-wZBL-k500, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 500. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noarchaeo.wZBL.k500, -->
+<!--                   theta.noarchaeo.wZBL.k500, -->
+<!--                   #hpd = hpd.noarchaeo.wZBL.k500, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ## Excluding Imputed Species -->
+
+<!-- ### k = 5 -->
+
+```{r plots-noimput-wZBL-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noimput' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noimput.wZBL.k5, burnin = 0.3, nshift = 5, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noimput-wZBL-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noimput' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noimput.wZBL.k5, -->
+<!--                   theta.noimput.wZBL.k5, -->
+<!--                   #hpd = hpd.noimput.wZBL.k5, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 15 -->
+
+```{r plots-noimput-wZBL-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noimput' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 15. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noimput.wZBL.k15, burnin = 0.3, nshift = 15, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noimput-wZBL-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noimput' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 15. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noimput.wZBL.k15, -->
+<!--                   theta.noimput.wZBL.k15, -->
+<!--                   #hpd = hpd.noimput.wZBL.k15, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 50 -->
+
+```{r plots-noimput-wZBL-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noimput' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 50. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noimput.wZBL.k50, burnin = 0.3, nshift = 50, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noimput-wZBL-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noimput' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 50. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noimput.wZBL.k50, -->
+<!--                   theta.noimput.wZBL.k50, -->
+<!--                   #hpd = hpd.noimput.wZBL.k50, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 250 -->
+
+```{r plots-noimput-wZBL-k250, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noimput' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 250. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noimput.wZBL.k250, burnin = 0.3, nshift = 250, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noimput-wZBL-k250, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noimput' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 250. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noimput.wZBL.k250, -->
+<!--                   theta.noimput.wZBL.k250, -->
+<!--                   #hpd = hpd.noimput.wZBL.k250, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 500 -->
+
+```{r plots-noimput-wZBL-k500, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noimput' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 500. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noimput.wZBL.k500, burnin = 0.3, nshift = 500, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noimput-wZBL-k500, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noimput' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 500. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noimput.wZBL.k500, -->
+<!--                   theta.noimput.wZBL.k500, -->
+<!--                   #hpd = hpd.noimput.wZBL.k500, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+\clearpage
+
+<!-- ## Excluding extant species -->
+
+<!-- ### k = 5 -->
+
+```{r plots-noextant-wZBL-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noextant' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noextant.wZBL.k5, burnin = 0.3, nshift = 5, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noextant-wZBL-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noextant' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noextant.wZBL.k5, -->
+<!--                   theta.noextant.wZBL.k5, -->
+<!--                   #hpd = hpd.noextant.wZBL.k5, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 15 -->
+
+```{r plots-noextant-wZBL-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noextant' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 15. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noextant.wZBL.k15, burnin = 0.3, nshift = 15, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noextant-wZBL-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noextant' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 15. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noextant.wZBL.k15, -->
+<!--                   theta.noextant.wZBL.k15, -->
+<!--                   #hpd = hpd.noextant.wZBL.k15, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 50 -->
+
+```{r plots-noextant-wZBL-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noextant' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 50. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noextant.wZBL.k50, burnin = 0.3, nshift = 50, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noextant-wZBL-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noextant' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 50. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noextant.wZBL.k50, -->
+<!--                   theta.noextant.wZBL.k50, -->
+<!--                   #hpd = hpd.noextant.wZBL.k50, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 250 -->
+
+```{r plots-noextant-wZBL-k250, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noextant' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 250. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noextant.wZBL.k250, burnin = 0.3, nshift = 250, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noextant-wZBL-k250, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noextant' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 250. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noextant.wZBL.k250, -->
+<!--                   theta.noextant.wZBL.k250, -->
+<!--                   #hpd = hpd.noextant.wZBL.k250, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 500 -->
+
+```{r plots-noextant-wZBL-k500, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noextant' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 500. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noextant.wZBL.k500, burnin = 0.3, nshift = 500, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noextant-wZBL-k500, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noextant' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 500. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noextant.wZBL.k500, -->
+<!--                   theta.noextant.wZBL.k500, -->
+<!--                   #hpd = hpd.noextant.wZBL.k500, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+
+<!-- ## Baleen Whales -->
+
+<!-- ### k = 5 -->
+
+```{r plots-baleen-wZBL-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'baleen' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.baleen.wZBL.k5, burnin = 0.3, nshift = 5, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-baleen-wZBL-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'baleen' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.baleen.wZBL.k5, -->
+<!--                   theta.baleen.wZBL.k5, -->
+<!--                   #hpd = hpd.baleen.wZBL.k5, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 15 -->
+
+```{r plots-baleen-wZBL-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'baleen' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 15. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.baleen.wZBL.k15, burnin = 0.3, nshift = 15, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-baleen-wZBL-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'baleen' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 15. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.baleen.wZBL.k15, -->
+<!--                   theta.baleen.wZBL.k15, -->
+<!--                   #hpd = hpd.baleen.wZBL.k15, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 50 -->
+
+```{r plots-baleen-wZBL-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'baleen' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 50. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.baleen.wZBL.k50, burnin = 0.3, nshift = 50, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-baleen-wZBL-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'baleen' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 50. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.baleen.wZBL.k50, -->
+<!--                   theta.baleen.wZBL.k50, -->
+<!--                   #hpd = hpd.baleen.wZBL.k50, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ## Toothed Whales -->
+
+<!-- ### k = 5 -->
+
+```{r plots-toothed-wZBL-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'toothed' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.toothed.wZBL.k5, burnin = 0.3, nshift = 5, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-toothed-wZBL-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'toothed' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.toothed.wZBL.k5, -->
+<!--                   theta.toothed.wZBL.k5, -->
+<!--                   #hpd = hpd.toothed.wZBL.k5, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 15 -->
+
+```{r plots-toothed-wZBL-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'toothed' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 15. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.toothed.wZBL.k15, burnin = 0.3, nshift = 15, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-toothed-wZBL-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'toothed' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 15. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.toothed.wZBL.k15, -->
+<!--                   theta.toothed.wZBL.k15, -->
+<!--                   #hpd = hpd.toothed.wZBL.k15, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 50 -->
+
+```{r plots-toothed-wZBL-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'toothed' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 50. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.toothed.wZBL.k50, burnin = 0.3, nshift = 50, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-toothed-wZBL-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'toothed' tree \\textbf{including ZBL} setting the average number of shifts in the prior distribution to 50. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.toothed.wZBL.k50, -->
+<!--                   theta.toothed.wZBL.k50, -->
+<!--                   #hpd = hpd.toothed.wZBL.k50, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+
+<!-- ## Per Epoch -->
+
+<!-- ### Oligocene -->
+
+<!-- ```{r plots-oligo, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'oligocene' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."} -->
+
+<!-- #pdf(file = here("docs/figs/main_figs/oligo_k5.pdf"), width = 15, height = 20) -->
+<!-- plot.shifts.coded(mcmcOU.oligo, burnin = 0.3, nshift = 2, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo() -->
+<!-- #dev.off() -->
+
+<!-- ``` -->
+
+<!-- ```{r theta-oligo, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'oligocene' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.oligo, -->
+<!--                   theta.oligo, -->
+<!--                   #hpd = hpd.oligo, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+
+<!-- ### Earlymiocene -->
+
+<!-- ```{r plots-earlymio, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'earlymiocene' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."} -->
+
+<!-- #pdf(file = here("docs/figs/main_figs/earlymio_k5.pdf"), width = 15, height = 20) -->
+<!-- plot.shifts.coded(mcmcOU.earlymio, burnin = 0.3, nshift = 2, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo() -->
+<!-- #dev.off() -->
+
+<!-- ``` -->
+
+<!-- ```{r theta-earlymio, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'earlymiocene' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.earlymio, -->
+<!--                   theta.earlymio, -->
+<!--                   #hpd = hpd.earlymio, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+
+<!-- ### Midmiocene -->
+
+<!-- ```{r plots-midmio, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'midmiocene' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."} -->
+
+<!-- #pdf(file = here("docs/figs/main_figs/midmio_k5.pdf"), width = 15, height = 20) -->
+<!-- plot.shifts.coded(mcmcOU.midmio, burnin = 0.3, nshift = 2, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo() -->
+<!-- #dev.off() -->
+
+<!-- ``` -->
+
+<!-- ```{r theta-midmio, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'midmiocene' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.midmio, -->
+<!--                   theta.midmio, -->
+<!--                   #hpd = hpd.midmio, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+
+<!-- ### Latemiocene -->
+
+<!-- ```{r plots-latemio, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'latemiocene' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."} -->
+
+<!-- #pdf(file = here("docs/figs/main_figs/latemio_k5.pdf"), width = 15, height = 20) -->
+<!-- plot.shifts.coded(mcmcOU.latemio, burnin = 0.3, nshift = 2, pp.cutoff = 0.07, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo() -->
+<!-- #dev.off() -->
+
+<!-- ``` -->
+
+<!-- ```{r theta-latemio, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'latemiocene' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.latemio, -->
+<!--                   theta.latemio, -->
+<!--                   #hpd = hpd.latemio, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+
+<!-- ### Pliocene -->
+
+<!-- ```{r plots-plio, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'pliocene' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."} -->
+
+<!-- #pdf(file = here("docs/figs/main_figs/plio_k5.pdf"), width = 15, height = 20) -->
+<!-- plot.shifts.coded(mcmcOU.plio, burnin = 0.3, nshift = 2, pp.cutoff = 0.08, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo() -->
+<!-- #dev.off() -->
+
+<!-- ``` -->
+
+<!-- ```{r theta-plio, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'pliocene' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.plio, -->
+<!--                   theta.plio, -->
+<!--                   #hpd = hpd.plio, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+\clearpage
+
+<!-- # Excluding species with ZBL -->
+<!-- ## Full tree -->
+<!-- ### k = 5 -->
+
+```{r plots-full-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'full' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+## par(mfrow = c(1, 2))
+## plot.shifts.coded(mcmcOU.full.k15, burnin = 0.3, nshift = 15, pp.cutoff = 0.1, tiplab = TRUE, type = "fan", cex.lab = 0.5)
+
+plot.shifts.coded(mcmcOU.full.k5, burnin = 0.3, nshift = 5, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+## par(mfrow = c(1, 1))
+## plotBranchHeatMap(mcmcOU.full.k15$tree, chainOU.full.k15, "theta", burnin = 0.3, pal = colorRampPalette(rev(RColorBrewer::brewer.pal(11, "Spectral"))), cex = 0.5, edge.width = 2);axisPhylo()
+
+```
+
+<!-- ```{r theta-full-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'full' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.full.k5, -->
+<!--                   theta.full.k5, -->
+<!--                   #hpd = hpd.full.k5, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 15 -->
+
+```{r plots-full-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'full' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 15. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+#pdf(file = here("docs/figs/main_figs/full_k15.pdf"), width = 15, height = 20)
+plot.shifts.coded(mcmcOU.full.k15, burnin = 0.3, nshift = 15, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+#dev.off()
+
+## plotTree.barplot.match2(full.k15.map, tl.bayou, chain = chainOU.full.k15, pal.pack = "met", pal = "VanGogh2", phy = mcmcOU.full.k15$tree, edge.label = TRUE, circle = FALSE, prop = c(4, 1), pp.cutoff = 0.1)
+## dev.off()
+
+```
+
+<!-- ```{r theta-full-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'full' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 15. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.full.k15, -->
+<!--                   theta.full.k15, -->
+<!--                   #hpd = hpd.full.k15, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 50 -->
+
+```{r plots-full-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'full' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 50. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.full.k50, burnin = 0.3, nshift = 50, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ## ```{r theta-full-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'full' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 50. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.full.k50, -->
+<!--                   theta.full.k50, -->
+<!--                   #hpd = hpd.full.k50, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 250 -->
+
+```{r plots-full-k250, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'full' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 250. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.full.k250, burnin = 0.3, nshift = 250, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-full-k250, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'full' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 250. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.full.k250, -->
+<!--                   theta.full.k250, -->
+<!--                   #hpd = hpd.full.k250, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 500 -->
+
+```{r plots-full-k500, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'full' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 500. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.full.k500, burnin = 0.3, nshift = 500, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-full-k500, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'full' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 500. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.full.k500, -->
+<!--                   theta.full.k500, -->
+<!--                   #hpd = hpd.full.k500, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ## Excluding Archaeoceti -->
+
+<!-- ### k = 5 -->
+
+```{r plots-noarchaeo-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noarchaeo.k5, burnin = 0.3, nshift = 5, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noarchaeo-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noarchaeo.k5, -->
+<!--                   theta.noarchaeo.k5, -->
+<!--                   #hpd = hpd.noarchaeo.k5, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 15 -->
+
+```{r plots-noarchaeo-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 15. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noarchaeo.k15, burnin = 0.3, nshift = 15, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noarchaeo-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 15. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noarchaeo.k15, -->
+<!--                   theta.noarchaeo.k15, -->
+<!--                   #hpd = hpd.noarchaeo.k15, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 50 -->
+
+```{r plots-noarchaeo-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 50. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noarchaeo.k50, burnin = 0.3, nshift = 50, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noarchaeo-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 50. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noarchaeo.k50, -->
+<!--                   theta.noarchaeo.k50, -->
+<!--                   #hpd = hpd.noarchaeo.k50, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 250 -->
+
+```{r plots-noarchaeo-k250, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 250. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noarchaeo.k250, burnin = 0.3, nshift = 250, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noarchaeo-k250, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noarchaeo.k250, -->
+<!--                   theta.noarchaeo.k250, -->
+<!--                   #hpd = hpd.noarchaeo.k250, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 500 -->
+
+```{r plots-noarchaeo-k500, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 500. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noarchaeo.k500, burnin = 0.3, nshift = 500, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noarchaeo-k500, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noarchaeo' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 500. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noarchaeo.k500, -->
+<!--                   theta.noarchaeo.k500, -->
+<!--                   #hpd = hpd.noarchaeo.k500, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+\clearpage
+
+<!-- ## Excluding Imputed Species -->
+
+<!-- ### k = 5 -->
+
+```{r plots-noimput-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noimput' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noimput.k5, burnin = 0.3, nshift = 5, pp.cutoff = 0.09, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noimput-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noimput' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noimput.k5, -->
+<!--                   theta.noimput.k5, -->
+<!--                   #hpd = hpd.noimput.k5, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 15 -->
+
+```{r plots-noimput-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noimput' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 15. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noimput.k15, burnin = 0.3, nshift = 15, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noimput-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noimput' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 15. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noimput.k15, -->
+<!--                   theta.noimput.k15, -->
+<!--                   #hpd = hpd.noimput.k15, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 50 -->
+
+```{r plots-noimput-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noimput' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 50. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noimput.k50, burnin = 0.3, nshift = 50, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noimput-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noimput' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 50. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noimput.k50, -->
+<!--                   theta.noimput.k50, -->
+<!--                   #hpd = hpd.noimput.k50, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 250 -->
+
+```{r plots-noimput-k250, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noimput' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 250. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noimput.k250, burnin = 0.3, nshift = 250, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noimput-k250, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noimput' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noimput.k250, -->
+<!--                   theta.noimput.k250, -->
+<!--                   #hpd = hpd.noimput.k250, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 500 -->
+
+```{r plots-noimput-k500, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noimput' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 500. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noimput.k500, burnin = 0.3, nshift = 500, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noimput-k500, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noimput' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 500. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noimput.k500, -->
+<!--                   theta.noimput.k500, -->
+<!--                   #hpd = hpd.noimput.k500, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+
+<!-- ## Excluding extant species -->
+
+<!-- ### k = 5 -->
+
+```{r plots-noextant-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noextant' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noextant.k5, burnin = 0.3, nshift = 5, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noextant-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noextant' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noextant.k5, -->
+<!--                   theta.noextant.k5, -->
+<!--                   #hpd = hpd.noextant.k5, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 15 -->
+
+```{r plots-noextant-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noextant' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 15. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noextant.k15, burnin = 0.3, nshift = 15, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noextant-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noextant' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 15. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noextant.k15, -->
+<!--                   theta.noextant.k15, -->
+<!--                   #hpd = hpd.noextant.k15, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 50 -->
+
+```{r plots-noextant-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noextant' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 50. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noextant.k50, burnin = 0.3, nshift = 50, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noextant-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noextant' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 50. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noextant.k50, -->
+<!--                   theta.noextant.k50, -->
+<!--                   #hpd = hpd.noextant.k50, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 250 -->
+
+```{r plots-noextant-k250, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noextant' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 250. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noextant.k250, burnin = 0.3, nshift = 250, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noextant-k250, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noextant' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 250. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noextant.k250, -->
+<!--                   theta.noextant.k250, -->
+<!--                   #hpd = hpd.noextant.k250, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 500 -->
+
+```{r plots-noextant-k500, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'noextant' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 500. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.noextant.k500, burnin = 0.3, nshift = 500, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-noextant-k500, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'noextant' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 500. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.noextant.k500, -->
+<!--                   theta.noextant.k500, -->
+<!--                   #hpd = hpd.noextant.k500, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+
+<!-- ## Baleen Whales -->
+
+<!-- ### k = 5 -->
+
+```{r plots-baleen-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'baleen' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.baleen.k5, burnin = 0.3, nshift = 5, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-baleen-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'baleen' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.baleen.k5, -->
+<!--                   theta.baleen.k5, -->
+<!--                   #hpd = hpd.baleen.k5, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 15 -->
+
+```{r plots-baleen-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'baleen' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 15. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.baleen.k15, burnin = 0.3, nshift = 15, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-baleen-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'baleen' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 15. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.baleen.k15, -->
+<!--                   theta.baleen.k15, -->
+<!--                   #hpd = hpd.baleen.k15, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 50 -->
+
+```{r plots-baleen-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'baleen' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 50. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.baleen.k50, burnin = 0.3, nshift = 50, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-baleen-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'baleen' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 50. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.baleen.k50, -->
+<!--                   theta.baleen.k50, -->
+<!--                   #hpd = hpd.baleen.k50, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ## Toothed Whales -->
+
+<!-- ### k = 5 -->
+
+```{r plots-toothed-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'toothed' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.toothed.k5, burnin = 0.3, nshift = 5, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-toothed-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'toothed' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.toothed.k5, -->
+<!--                   theta.toothed.k5, -->
+<!--                   #hpd = hpd.toothed.k5, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 15 -->
+
+```{r plots-toothed-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'toothed' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 15. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.toothed.k15, burnin = 0.3, nshift = 15, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-toothed-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'toothed' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 15. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.toothed.k15, -->
+<!--                   theta.toothed.k15, -->
+<!--                   #hpd = hpd.toothed.k15, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ## k = 50 -->
+
+```{r plots-toothed-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'toothed' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 50. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.toothed.k50, burnin = 0.3, nshift = 50, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-toothed-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'toothed' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 50. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.toothed.k50, -->
+<!--                   theta.toothed.k50, -->
+<!--                   #hpd = hpd.toothed.k50, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ## Extant species -->
+
+<!-- ### k = 5 -->
+
+```{r plots-extant-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'extant' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+#pdf(file = here("docs/figs/main_figs/extant_k5.pdf"), width = 15, height = 20)
+plot.shifts.coded(mcmcOU.extant.k5, burnin = 0.3, nshift = 5, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+#dev.off()
+
+```
+
+<!-- ```{r theta-extant-k5, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'extant' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 5. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.extant.k5, -->
+<!--                   theta.extant.k5, -->
+<!--                   #hpd = hpd.extant.k5, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ### k = 15 -->
+
+```{r plots-extant-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'extant' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 15. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.extant.k15, burnin = 0.3, nshift = 15, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-extant-k15, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'extant' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 15. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.extant.k15, -->
+<!--                   theta.extant.k15, -->
+<!--                   #hpd = hpd.extant.k15, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+<!-- ## k = 50 -->
+
+```{r plots-extant-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.width = 15, fig.width = 15, fig.cap = "Results for \\textit{bayou} fit for the 'extant' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 50. The triangles point to the direction of each shift, and the colours also represent this direction."}
+
+plot.shifts.coded(mcmcOU.extant.k50, burnin = 0.3, nshift = 50, pp.cutoff = 0.1, tiplab = TRUE, change.cex = FALSE, lwd = 2, edge.col = "lightgrey");axisPhylo()
+
+```
+
+<!-- ```{r theta-extant-k50, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'extant' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 50. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- plot.branch.theta(mcmcOU.extant.k50, -->
+<!--                   theta.extant.k50, -->
+<!--                   #hpd = hpd.extant.k50, -->
+<!--                   cex.lab = 0.5, -->
+<!--                   cex.theta = 0.75) -->
+
+<!-- ``` -->
+
+
+\clearpage
+
+<!-- ```{r root-theta, echo = FALSE, fig.height = 20, fig.width = 15, fig.cap = "Theta per branch for \\textit{bayou} fit for the 'extant' tree \\textbf{excluding ZBL} setting the average number of shifts in the prior distribution to 50. Warmer colours indicate higher median values. Number between brackets correspond to the 95% CI."} -->
+
+<!-- library("ggplot2") -->
+<!-- library("cowplot") -->
+
+<!-- chain.vec <- ls(pattern = "chainOU.") -->
+
+<!-- post.for.hist <- data.frame(matrix(NA, nrow = 1200, ncol = length(chain.vec))) -->
+
+<!-- for(i in 1:ncol(post.for.hist)){ -->
+<!--     temp <- sapply(get(chain.vec[i])$theta, function(x){x[1]}) -->
+<!--     post.for.hist[1:length(temp), i] <- temp -->
+<!--     names(post.for.hist)[i] <- gsub("chainOU.", "", chain.vec[i]) -->
+<!-- } -->
+
+<!-- post.for.hist <- reshape2::melt(post.for.hist) -->
+
+<!-- ggplot(data = post.for.hist) + -->
+<!--     geom_density(aes(x = value)) + -->
+<!--     geom_point(aes(x = value, y = -1), shape = "|", colour = "grey") + -->
+<!--     facet_wrap(. ~ variable, ncol = 5, scales = "free_y") + -->
+<!--     labs(x = "Root Theta", y = "Density") + -->
+<!--     theme_cowplot() + -->
+<!--     theme(strip.text = element_text(size = 12)) -->
+    
+<!-- ``` -->
+
+
+
+
+<!-- # BAMM traits for the full and extant trees -->
+
+<!-- ## Full tree including lineages with zero branch length (ZBL) -->
+
+<!-- ### Varying rates through time -->
+<!-- #### Prior parameter = 1 -->
+
+<!-- ```{r bamm-traits-setup-wzbl-1, echo = FALSE, cache = FALSE} -->
+
+<!-- library("BAMMtools") -->
+
+<!-- full.tree.wzbl <- read.tree(here::here("output/bamm_traits/bammtraits_2022/final_tree_cetacea_wzbl.tre")) -->
+
+<!-- edata.full.wzbl <- getEventData(full.tree.wzbl, here::here("output/bamm_traits/bammtraits_2022/event_data_full_tree_wzbl.txt"), burnin = 0.1, type = "trait") -->
+
+<!-- mcmc.full.wzbl <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_full_tree_wzbl.txt")) -->
+
+<!-- ## Checking convergence -->
+<!-- postburn.full.wzbl <- mcmc.full.wzbl[floor(0.1 * nrow(mcmc.full.wzbl)):nrow(mcmc.full.wzbl),] -->
+<!-- coda::effectiveSize(postburn.full.wzbl$N_shifts) -->
+<!-- coda::effectiveSize(postburn.full.wzbl$logLik) -->
+
+<!-- ``` -->
+
+
+<!-- ```{r bamm-traits-plots-full-wzbl-1, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'full' tree \\textbf{including species with ZBL} and standard parameters for the priors (variable rates and prior for k = 1).", fig.height = 20, fig.width = 15} -->
+
+<!-- plot(credibleShiftSet(edata.full.wzbl, 1)) -->
+
+<!-- ``` -->
+
+
+
+<!-- ## Prior parameter = 0.1 -->
+
+<!-- ```{r bamm-traits-setup-wzbl-0_1, echo = FALSE, cache = FALSE} -->
+
+<!-- ## library("BAMMtools") -->
+
+<!-- edata.full.wzbl.0.1 <- getEventData(full.tree.wzbl, here::here("output/bamm_traits/bammtraits_2022/event_data_full_tree_wzbl_0_1.txt"), burnin = 0.1, type = "trait") -->
+
+<!-- mcmc.full.wzbl.0.1 <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_full_tree_wzbl_0_1.txt")) -->
+
+<!-- ## Checking convergence -->
+<!-- postburn.full.wzbl.0.1 <- mcmc.full.wzbl.0.1[floor(0.1 * nrow(mcmc.full.wzbl.0.1)):nrow(mcmc.full.wzbl.0.1),] -->
+<!-- coda::effectiveSize(postburn.full.wzbl.0.1$N_shifts) -->
+<!-- coda::effectiveSize(postburn.full.wzbl.0.1$logLik) -->
+
+<!-- ``` -->
+
+
+<!-- ```{r bamm-traits-plots-full-wzbl-0_1, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'full' tree \\textbf{including species with ZBL} and modified parameters for the priors (variable rates and prior for k = 0.1).", fig.height = 20, fig.width = 15} -->
+
+<!-- plot(credibleShiftSet(edata.full.wzbl.0.1, 1)) -->
+
+<!-- ``` -->
+
+
+
+<!-- ## Prior parameter = 0.02 -->
+
+<!-- ```{r bamm-traits-setup-wzbl-0_02, echo = FALSE, cache = FALSE} -->
+
+<!-- edata.full.wzbl.0.02 <- getEventData(full.tree.wzbl, here::here("output/bamm_traits/bammtraits_2022/event_data_full_tree_wzbl_0_02.txt"), burnin = 0.1, type = "trait") -->
+
+<!-- mcmc.full.wzbl.0.02 <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_full_tree_wzbl_0_02.txt")) -->
+
+<!-- ## Checking convergence -->
+<!-- postburn.full.wzbl.0.02 <- mcmc.full.wzbl.0.02[floor(0.1 * nrow(mcmc.full.wzbl.0.02)):nrow(mcmc.full.wzbl.0.02),] -->
+<!-- coda::effectiveSize(postburn.full.wzbl.0.02$N_shifts) -->
+<!-- coda::effectiveSize(postburn.full.wzbl.0.02$logLik) -->
+
+<!-- ``` -->
+
+
+<!-- ```{r bamm-traits-plots-full-wzbl-0_02, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'full' tree \\textbf{including species with ZBL} and modified parameters for the priors (variable rates and prior for k = 0.02).", fig.height = 20, fig.width = 15} -->
+
+<!-- plot(credibleShiftSet(edata.full.wzbl.0.02, 1)) -->
+
+<!-- ``` -->
+
+
+<!-- ## Constant rates through time -->
+<!-- ### Prior parameter = 1 -->
+
+<!-- ```{r bamm-traits-setup-1-wzbl-cst, echo = FALSE, cache = FALSE} -->
+
+<!-- edata.full.wzbl.cst <- getEventData(full.tree.wzbl, here::here("output/bamm_traits/bammtraits_2022/event_data_full_tree_wzbl_cst.txt"), burnin = 0.1, type = "trait") -->
+
+<!-- mcmc.full.wzbl.cst <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_full_tree_wzbl_cst.txt")) -->
+
+<!-- ## Checking convergence -->
+<!-- postburn.full.wzbl.cst <- mcmc.full.wzbl.cst[floor(0.1 * nrow(mcmc.full.wzbl.cst)):nrow(mcmc.full.wzbl.cst),] -->
+<!-- coda::effectiveSize(postburn.full.wzbl.cst$N_shifts) -->
+<!-- coda::effectiveSize(postburn.full.wzbl.cst$logLik) -->
+
+<!-- ``` -->
+
+
+<!-- ```{r bamm-traits-plots-full-1-wzbl-cst, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'full' tree \\textbf{including species with ZBL} and modified parameters for the priors (constant rates and prior for k = 1).", fig.height = 20, fig.width = 15} -->
+
+<!-- plot(credibleShiftSet(edata.full.wzbl.cst, 1)) -->
+
+<!-- ``` -->
+
+
+
+<!-- ## Prior parameter = 0.1 -->
+
+<!-- ```{r bamm-traits-setup-0_1-wzbl-cst, echo = FALSE, cache = FALSE} -->
+
+<!-- ## library("BAMMtools") -->
+
+<!-- edata.full.wzbl.0.1.cst <- getEventData(full.tree.wzbl, here::here("output/bamm_traits/bammtraits_2022/event_data_full_tree_wzbl_cst_0_1.txt"), burnin = 0.1, type = "trait") -->
+
+<!-- mcmc.full.wzbl.0.1.cst <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_full_tree_wzbl_cst_0_1.txt")) -->
+
+<!-- ## Checking convergence -->
+<!-- postburn.full.wzbl.0.1.cst <- mcmc.full.wzbl.0.1.cst[floor(0.1 * nrow(mcmc.full.wzbl.0.1.cst)):nrow(mcmc.full.wzbl.0.1.cst),] -->
+<!-- coda::effectiveSize(postburn.full.wzbl.0.1.cst$N_shifts) -->
+<!-- coda::effectiveSize(postburn.full.wzbl.0.1.cst$logLik) -->
+
+<!-- ``` -->
+
+
+<!-- ```{r bamm-traits-plots-full-0_1-wzbl-cst, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'full' tree \\textbf{including species with ZBL} and modified parameters for the priors (constant rates and prior for k = 0.1).", fig.height = 20, fig.width = 15} -->
+
+<!-- plot(credibleShiftSet(edata.full.wzbl.0.1.cst, 1)) -->
+
+<!-- ``` -->
+
+
+
+<!-- ## Prior parameter = 0.02 -->
+
+<!-- ```{r bamm-traits-setup-0_02-wzbl-cst, echo = FALSE, cache = FALSE} -->
+
+<!-- edata.full.wzbl.0.02.cst <- getEventData(full.tree.wzbl, here::here("output/bamm_traits/bammtraits_2022/event_data_full_tree_wzbl_cst_0_02.txt"), burnin = 0.1, type = "trait") -->
+
+<!-- mcmc.full.wzbl.0.02.cst <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_full_tree_wzbl_cst_0_02.txt")) -->
+
+<!-- ## Checking convergence -->
+<!-- postburn.full.wzbl.0.02.cst <- mcmc.full.wzbl.0.02.cst[floor(0.1 * nrow(mcmc.full.wzbl.0.02.cst)):nrow(mcmc.full.wzbl.0.02.cst),] -->
+<!-- coda::effectiveSize(postburn.full.wzbl.0.02.cst$N_shifts) -->
+<!-- coda::effectiveSize(postburn.full.wzbl.0.02.cst$logLik) -->
+
+<!-- ``` -->
+
+
+<!-- ```{r bamm-traits-plots-full-0_02-wzbl-cst, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'full' tree \\textbf{including species with ZBL} and modified parameters for the priors (constant rates and prior for k = 0.02).", fig.height = 20, fig.width = 15} -->
+
+<!-- plot(credibleShiftSet(edata.full.wzbl.0.02.cst, 1)) -->
+
+<!-- ``` -->
+
+
+
+<!-- ## Full tree excluding ZBL and extant tree -->
+
+<!-- ### Varying rates through time -->
+<!-- ### Prior parameter = 1 -->
+
+<!-- ```{r bamm-traits-setup-1, echo = FALSE, cache = FALSE} -->
+
+<!-- library("BAMMtools") -->
+
+<!-- full.tree <- read.tree(here::here("output/bamm_traits/bammtraits_2022/final_tree_cetacea.tre")) -->
+<!-- extant.tree <- read.tree(here::here("output/bamm_traits/bammtraits_2022/final_tree_extant.tre")) -->
+
+<!-- edata.full <- getEventData(full.tree, here::here("output/bamm_traits/bammtraits_2022/event_data_full_tree.txt"), burnin = 0.1, type = "trait") -->
+<!-- edata.extant <- getEventData(extant.tree, here::here("output/bamm_traits/bammtraits_2022/event_data_extant_tree.txt"), burnin = 0.1, type = "trait") -->
+
+<!-- mcmc.full <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_full_tree.txt")) -->
+<!-- mcmc.extant <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_extant_tree.txt")) -->
+
+<!-- ## Checking convergence -->
+<!-- postburn.full <- mcmc.full[floor(0.1 * nrow(mcmc.full)):nrow(mcmc.full),] -->
+<!-- coda::effectiveSize(postburn.full$N_shifts) -->
+<!-- coda::effectiveSize(postburn.full$logLik) -->
+
+<!-- postburn.extant <- mcmc.extant[floor(0.1 * nrow(mcmc.extant)):nrow(mcmc.extant),] -->
+<!-- coda::effectiveSize(postburn.extant$N_shifts) -->
+<!-- coda::effectiveSize(postburn.extant$logLik) -->
+
+<!-- ``` -->
+
+
+<!-- ```{r bamm-traits-plots-full-1, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'full' tree and standard parameters for the priors (variable rates and prior for k = 1).", fig.height = 20, fig.width = 15} -->
+
+<!-- plot(credibleShiftSet(edata.full, 1)) -->
+
+<!-- ``` -->
+
+<!-- ```{r bamm-traits-plots-extant-1, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'extant' tree and standard parameters for the priors (variable rates and prior for k = 1)."} -->
+
+<!-- plot(credibleShiftSet(edata.extant, 1)) -->
+
+<!-- ``` -->
+
+
+
+<!-- ## Prior parameter = 0.1 -->
+
+<!-- ```{r bamm-traits-setup-0_1, echo = FALSE, cache = FALSE} -->
+
+<!-- ## library("BAMMtools") -->
+
+<!-- edata.full.0.1 <- getEventData(full.tree, here::here("output/bamm_traits/bammtraits_2022/event_data_full_tree_0_1.txt"), burnin = 0.1, type = "trait") -->
+<!-- edata.extant.0.1 <- getEventData(extant.tree, here::here("output/bamm_traits/bammtraits_2022/event_data_extant_tree_0_1.txt"), burnin = 0.1, type = "trait") -->
+
+<!-- mcmc.full.0.1 <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_full_tree_0_1.txt")) -->
+<!-- mcmc.extant.0.1 <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_extant_tree_0_1.txt")) -->
+
+<!-- ## Checking convergence -->
+<!-- postburn.full.0.1 <- mcmc.full.0.1[floor(0.1 * nrow(mcmc.full.0.1)):nrow(mcmc.full.0.1),] -->
+<!-- coda::effectiveSize(postburn.full.0.1$N_shifts) -->
+<!-- coda::effectiveSize(postburn.full.0.1$logLik) -->
+
+<!-- postburn.extant.0.1 <- mcmc.extant.0.1[floor(0.1 * nrow(mcmc.extant.0.1)):nrow(mcmc.extant.0.1),] -->
+<!-- coda::effectiveSize(postburn.extant.0.1$N_shifts) -->
+<!-- coda::effectiveSize(postburn.extant.0.1$logLik) -->
+
+<!-- ``` -->
+
+
+<!-- ```{r bamm-traits-plots-full-0_1, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'full' tree and modified parameters for the priors (variable rates and prior for k = 0.1).", fig.height = 20, fig.width = 15} -->
+
+<!-- plot(credibleShiftSet(edata.full.0.1, 1)) -->
+
+<!-- ``` -->
+
+<!-- ```{r bamm-traits-plots-extant-0_1, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'extant' tree and modified parameters for the priors (variable rates and prior for k = 0.1).", fig.height = 20, fig.width = 15} -->
+
+<!-- plot(credibleShiftSet(edata.extant.0.1, 1)) -->
+
+<!-- ``` -->
+
+
+
+<!-- ## Prior parameter = 0.02 -->
+
+<!-- ```{r bamm-traits-setup-0_02, echo = FALSE, cache = FALSE} -->
+
+<!-- edata.full.0.02 <- getEventData(full.tree, here::here("output/bamm_traits/bammtraits_2022/event_data_full_tree_0_02.txt"), burnin = 0.1, type = "trait") -->
+<!-- edata.extant.0.02 <- getEventData(extant.tree, here::here("output/bamm_traits/bammtraits_2022/event_data_extant_tree_0_02.txt"), burnin = 0.1, type = "trait") -->
+
+<!-- mcmc.full.0.02 <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_full_tree_0_02.txt")) -->
+<!-- mcmc.extant.0.02 <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_extant_tree_0_02.txt")) -->
+
+<!-- ## Checking convergence -->
+<!-- postburn.full.0.02 <- mcmc.full.0.02[floor(0.1 * nrow(mcmc.full.0.02)):nrow(mcmc.full.0.02),] -->
+<!-- coda::effectiveSize(postburn.full.0.02$N_shifts) -->
+<!-- coda::effectiveSize(postburn.full.0.02$logLik) -->
+
+<!-- postburn.extant.0.02 <- mcmc.extant.0.02[floor(0.1 * nrow(mcmc.extant.0.02)):nrow(mcmc.extant.0.02),] -->
+<!-- coda::effectiveSize(postburn.extant.0.02$N_shifts) -->
+<!-- coda::effectiveSize(postburn.extant.0.02$logLik) -->
+
+<!-- ``` -->
+
+
+<!-- ```{r bamm-traits-plots-full-0_02, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'full' tree and modified parameters for the priors (variable rates and prior for k = 0.02).", fig.height = 20, fig.width = 15} -->
+
+<!-- plot(credibleShiftSet(edata.full.0.02, 1)) -->
+
+<!-- ``` -->
+
+<!-- ```{r bamm-traits-plots-extant-0_02, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'extant' tree and modified parameters for the priors (variable rates and prior for k = 0.02)."} -->
+
+<!-- plot(credibleShiftSet(edata.extant.0.02, 1)) -->
+
+<!-- ``` -->
+
+
+<!-- ## Constant rates through time -->
+<!-- ### Prior parameter = 1 -->
+
+<!-- ```{r bamm-traits-setup-1-cst, echo = FALSE, cache = FALSE} -->
+
+<!-- edata.full.cst <- getEventData(full.tree, here::here("output/bamm_traits/bammtraits_2022/event_data_full_tree_cst.txt"), burnin = 0.1, type = "trait") -->
+<!-- edata.extant.cst <- getEventData(extant.tree, here::here("output/bamm_traits/bammtraits_2022/event_data_extant_tree_cst.txt"), burnin = 0.1, type = "trait") -->
+
+<!-- mcmc.full.cst <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_full_tree_cst.txt")) -->
+<!-- mcmc.extant.cst <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_extant_tree_cst.txt")) -->
+
+<!-- ## Checking convergence -->
+<!-- postburn.full.cst <- mcmc.full.cst[floor(0.1 * nrow(mcmc.full.cst)):nrow(mcmc.full.cst),] -->
+<!-- coda::effectiveSize(postburn.full.cst$N_shifts) -->
+<!-- coda::effectiveSize(postburn.full.cst$logLik) -->
+
+<!-- postburn.extant.cst <- mcmc.extant.cst[floor(0.1 * nrow(mcmc.extant.cst)):nrow(mcmc.extant.cst),] -->
+<!-- coda::effectiveSize(postburn.extant.cst$N_shifts) -->
+<!-- coda::effectiveSize(postburn.extant.cst$logLik) -->
+
+<!-- ``` -->
+
+
+<!-- ```{r bamm-traits-plots-full-1-cst, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'full' tree and modified parameters for the priors (constant rates and prior for k = 1).", fig.height = 20, fig.width = 15} -->
+
+<!-- plot(credibleShiftSet(edata.full.cst, 1)) -->
+
+<!-- ``` -->
+
+<!-- ```{r bamm-traits-plots-extant-1-cst, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'extant' tree and modified parameters for the priors (constant rates and prior for k = 1).", fig.height = 20, fig.width = 15} -->
+
+<!-- plot(credibleShiftSet(edata.extant.cst, 1)) -->
+
+<!-- ``` -->
+
+
+
+<!-- ## Prior parameter = 0.1 -->
+
+<!-- ```{r bamm-traits-setup-0_1-cst, echo = FALSE, cache = FALSE, fig.height = 20, fig.width = 15} -->
+
+<!-- ## library("BAMMtools") -->
+
+<!-- edata.full.0.1.cst <- getEventData(full.tree, here::here("output/bamm_traits/bammtraits_2022/event_data_full_tree_0_1_cst.txt"), burnin = 0.1, type = "trait") -->
+<!-- edata.extant.0.1.cst <- getEventData(extant.tree, here::here("output/bamm_traits/bammtraits_2022/event_data_extant_tree_0_1_cst.txt"), burnin = 0.1, type = "trait") -->
+
+<!-- mcmc.full.0.1.cst <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_full_tree_0_1_cst.txt")) -->
+<!-- mcmc.extant.0.1.cst <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_extant_tree_0_1_cst.txt")) -->
+
+<!-- ## Checking convergence -->
+<!-- postburn.full.0.1.cst <- mcmc.full.0.1.cst[floor(0.1 * nrow(mcmc.full.0.1.cst)):nrow(mcmc.full.0.1.cst),] -->
+<!-- coda::effectiveSize(postburn.full.0.1.cst$N_shifts) -->
+<!-- coda::effectiveSize(postburn.full.0.1.cst$logLik) -->
+
+<!-- postburn.extant.0.1.cst <- mcmc.extant.0.1[floor(0.1 * nrow(mcmc.extant.0.1.cst)):nrow(mcmc.extant.0.1.cst),] -->
+<!-- coda::effectiveSize(postburn.extant.0.1.cst$N_shifts) -->
+<!-- coda::effectiveSize(postburn.extant.0.1.cst$logLik) -->
+
+<!-- ``` -->
+
+
+<!-- ```{r bamm-traits-plots-full-0_1-cst, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'full' tree and modified parameters for the priors (constant rates and prior for k = 0.1).", fig.height = 20, fig.width = 15} -->
+
+<!-- plot(credibleShiftSet(edata.full.0.1.cst, 1)) -->
+
+<!-- ``` -->
+
+<!-- ```{r bamm-traits-plots-extant-0_1-cst, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'extant' tree and modified parameters for the priors (constant rates and prior for k = 0.1).", fig.height = 20, fig.width = 15} -->
+
+<!-- plot(credibleShiftSet(edata.extant.0.1.cst, 1)) -->
+
+<!-- ``` -->
+
+
+
+<!-- ## Prior parameter = 0.02 -->
+
+<!-- ```{r bamm-traits-setup-0_02-cst, echo = FALSE, cache = FALSE} -->
+
+<!-- edata.full.0.02.cst <- getEventData(full.tree, here::here("output/bamm_traits/bammtraits_2022/event_data_full_tree_0_02_cst.txt"), burnin = 0.1, type = "trait") -->
+<!-- edata.extant.0.02.cst <- getEventData(extant.tree, here::here("output/bamm_traits/bammtraits_2022/event_data_extant_tree_0_02_cst.txt"), burnin = 0.1, type = "trait") -->
+
+<!-- mcmc.full.0.02.cst <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_full_tree_0_02_cst.txt")) -->
+<!-- mcmc.extant.0.02.cst <- read.csv(here::here("output/bamm_traits/bammtraits_2022/mcmc_out_extant_tree_0_02_cst.txt")) -->
+
+<!-- ## Checking convergence -->
+<!-- postburn.full.0.02.cst <- mcmc.full.0.02.cst[floor(0.1 * nrow(mcmc.full.0.02.cst)):nrow(mcmc.full.0.02.cst),] -->
+<!-- coda::effectiveSize(postburn.full.0.02.cst$N_shifts) -->
+<!-- coda::effectiveSize(postburn.full.0.02.cst$logLik) -->
+
+<!-- postburn.extant.0.02.cst <- mcmc.extant.0.02.cst[floor(0.1 * nrow(mcmc.extant.0.02.cst)):nrow(mcmc.extant.0.02.cst),] -->
+<!-- coda::effectiveSize(postburn.extant.0.02.cst$N_shifts) -->
+<!-- coda::effectiveSize(postburn.extant.0.02.cst$logLik) -->
+
+<!-- ``` -->
+
+
+<!-- ```{r bamm-traits-plots-full-0_02-cst, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'full' tree and modified parameters for the priors (constant rates and prior for k = 0.02).", fig.height = 20, fig.width = 15} -->
+
+<!-- plot(credibleShiftSet(edata.full.0.02.cst, 1)) -->
+
+<!-- ``` -->
+
+<!-- ```{r bamm-traits-plots-extant-0_02-cst, echo = FALSE, fig.cap = "Credible shift sets for the BAMMtrait analysis using the 'extant' tree and modified parameters for the priors (constant rates and prior for k = 0.02).", fig.height = 20, fig.width = 15} -->
+
+<!-- plot(credibleShiftSet(edata.extant.0.02.cst, 1)) -->
+
+<!-- ``` -->
+
+<!-- # Tracing the "adaptive landscape" based on bayou results -->
+
+<!-- ```{r echo = FALSE, eval = FALSE} -->
+
+<!-- pp.table <- summary(chainOU.full.wZBL.k500)$branch.posteriors -->
+<!-- pp.table <- pp.table[order(pp.table$pp, decreasing = TRUE),] -->
+<!-- pp.table.089 <- pp.table[pp.table$pp >= 0.89,] -->
+
+<!-- plot.bayou(chainOU.full.wZBL.k500, phy = mcmcOU.full.wZBL.k500$tree, n.shifts = nrow(pp.table.089), pal = "Set3", cex.circle = 0.75) -->
+
+<!-- ``` -->
+
+
+<!-- ## Using shifts from extant trees to inform SIMMAP/OUwie -->
+
+<!-- ```{r echo = FALSE, eval = FALSE} -->
+
+<!-- nodes.w.shifts <- -->
+<!--     c(getMRCA(mcmcOU.full.wZBL.k500$tree, c("Mystacodon_selenensis", "Coronodon_havensteini")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Micromysticetus_rothauseni", "Micromysticetus_rothauseni")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Yamatocetus_canaliculatus", "Yamatocetus_canaliculatus")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Archaeobalaena_dosanko", "Archaeobalaena_dosanko")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Balaenella_brachyrhynus", "Balaena_mysticetus")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Balaenula_astensis", "Balaena_mysticetus")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Balaenula_astensis", "Balaenula_astensis")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Norrisanima_miocaena", "Norrisanima_miocaena")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Nehalaennia_devossi", "Archaebalaenoptera_castriarquati")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Nehalaennia_devossi", "Archaebalaenoptera_castriarquati")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Nehalaennia_devossi", "Eschrichtius_robustus")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Megaptera_novaeangliae", "Balaenoptera_borealis")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Megaptera_novaeangliae", "Balaenoptera_physalus")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Megaptera_novaeangliae", "Megaptera_novaeangliae")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Parabalaenoptera_baulinensis", "Parabalaenoptera_baulinensis")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Eschrichtius_robustus", "Eschrichtius_robustus")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Incakujira_anillodefuego", "Archaebalaenoptera_castriarquati")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Balaenoptera_siberi", "Balaenoptera_siberi")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Balaenoptera_bertae", "Balaenoptera_bertae")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Balaenoptera_acutorostrata", "Balaenoptera_acutorostrata")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Archaebalaenoptera_castriarquati", "Archaebalaenoptera_castriarquati")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Pelocetus_calvertensis", "Pelocetus_calvertensis")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Taikicetus_inouei", "Parietobalaena_campiniana")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Olympicetus_avitus", "Simocetus_rayi")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Zarhinocetus_errabundus", "Ninjadelphis_ujiharai")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Parapontoporia_wilsoni", "Samaydelphis_chacaltanae")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Samaydelphis_chacaltanae", "Samaydelphis_chacaltanae")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Kampholophos_serrulus", "Kampholophos_serrulus")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Macrokentriodon_morani", "Hadrodelphis_calvertense")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Macrokentriodon_morani", "Macrokentriodon_morani")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Kentriodon_pernix", "Kentriodon_nakajimai")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Orcaella_heinsohni", "Orcaella_brevirostris")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Orcaella_brevirostris", "Orcaella_brevirostris")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Sotalia_guianensis", "Delphinus_capensis")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Lagenodelphis_hosei", "Lagenodelphis_hosei")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Delphinus_delphis", "Delphinus_delphis")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Phocoena_spinipinnis", "Phocoena_spinipinnis")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Imocetus_piscatus", "Beneziphius_brevirostris")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Chavinziphius_maxillocristatus", "Chavinziphius_maxillocristatus")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Tasmacetus_shepherdi", "Africanacetus_ceratopsis")), -->
+<!--                     getMRCA(mcmcOU.full.wZBL.k500$tree, c("Mesoplodon_posti", "Mesoplodon_bidens"))) -->
+
+<!-- as.numeric(rownames(mcmcOU.full.wZBL.k500$tree$edge)[match(nodes.w.shifts, mcmcOU.full.wZBL.k500$tree$edge[,1])]) -->
+
+<!-- alphas.full <- data.frame(k = c(5, 15, 50, 250, 500), -->
+<!--                                alpha = c(summary(chainOU.full.k5)$statistics[3,1], -->
+<!--                                  summary(chainOU.full.k15)$statistics[3,1], -->
+<!--                                  summary(chainOU.full.k50)$statistics[3,1], -->
+<!--                                  summary(chainOU.full.k250)$statistics[3,1], -->
+<!--                                  summary(chainOU.full.k500)$statistics[3,1]) -->
+<!--                                ) -->
+
+<!-- alphas.extant <- data.frame(k = c(5, 15, 50, 250, 500), -->
+<!--                                alpha = c(summary(chainOU.extant.k5)$statistics[3,1], -->
+<!--                                  summary(chainOU.extant.k15)$statistics[3,1], -->
+<!--                                  summary(chainOU.extant.k50)$statistics[3,1], -->
+<!--                                  summary(chainOU.extant.k250)$statistics[3,1], -->
+<!--                                  summary(chainOU.extant.k500)$statistics[3,1]) -->
+<!--                                ) -->
+
+
+<!-- pp.table.089 -->
+<!-- alpha.full.wZBL <- summary(chainOU.full.wZBL.k500)$statistics[3, 1] -->
+<!-- sigma2.full.wZBL <- summary(chainOU.full.wZBL.k500)$statistics[4, 1] -->
+
+<!-- adap.land <- setNames(data.frame(matrix(NA, ncol = nrow(pp.table.089), nrow = 1000)), paste0("regime", 1:nrow(pp.table.089))) -->
+
+<!-- for(i in 1:nrow(pp.table.089)){ -->
+<!--     print(i) -->
+<!--     adap.land[,i] <- rnorm(1000, mean = pp.table.089$magnitude.of.theta2[i], sd = sqrt(sigma2.full.wZBL)) -->
+<!-- } -->
+
+<!-- library("reshape2") -->
+
+<!-- adapland.plot <- melt(adap.land) -->
+
+<!-- library("ggplot2") -->
+
+<!-- ggplot(adapland.plot) + -->
+<!--     geom_density(aes(x = value, group = variable), alpha = 0.1) + -->
+<!--     cowplot::theme_cowplot() -->
+
+
+
+<!-- pp.table.extant <- summary(chainOU.extant.k500)$branch.posteriors -->
+<!-- pp.table.089.extant <- pp.table.extant[pp.table.extant[,1] >= 0.89,] -->
+<!-- pp.table.089.extant <- pp.table.089.extant[order(pp.table.089.extant[,1], decreasing = TRUE),] -->
+
+<!-- alpha.extant <- summary(chainOU.extant.k500)$statistics[3, 1] -->
+<!-- sigma2.extant <- summary(chainOU.extant.k500)$statistics[4, 1] -->
+
+
+<!-- adap.land.extant <- setNames(data.frame(matrix(NA, ncol = nrow(pp.table.089.extant), nrow = 1000)), paste0("regime", 1:nrow(pp.table.089.extant))) -->
+
+<!-- for(i in 1:nrow(pp.table.089.extant)){ -->
+<!--     print(i) -->
+<!--     adap.land.extant[,i] <- rnorm(1000, mean = pp.table.089.extant$magnitude.of.theta2[i], sd = sqrt(sigma2.extant)) -->
+<!-- } -->
+
+<!-- adapland.plot.extant <- melt(adap.land.extant) -->
+
+<!-- ggplot(adapland.plot.extant) + -->
+<!--     geom_density(aes(x = value, group = variable), alpha = 0.1) + -->
+<!--     cowplot::theme_cowplot() -->
+
+
+
+<!-- ``` -->

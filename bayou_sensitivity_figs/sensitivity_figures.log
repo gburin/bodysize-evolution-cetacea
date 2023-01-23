@@ -1,0 +1,1505 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.11.22)  23 JAN 2023 18:10
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**sensitivity_figures.tex
+(./sensitivity_figures.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-04-10> (/usr/share/texmf-dist/tex/latex/base/article
+.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+) (/usr/share/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2021/10/15 v2.17l AMS math features
+\@mathmargin=\skip49
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+(/usr/share/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks16
+\ex@=\dimen139
+)) (/usr/share/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen140
+) (/usr/share/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2021/08/26 v2.02 operator names
+)
+\inf@bad=\count193
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count194
+\leftroot@=\count195
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count196
+\DOTSCASE@=\count197
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box50
+\strutbox@=\box51
+\big@size=\dimen141
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count198
+\c@MaxMatrixCols=\count199
+\dotsspace@=\muskip16
+\c@parentequation=\count266
+\dspbrk@lvl=\count267
+\tag@help=\toks17
+\row@=\count268
+\column@=\count269
+\maxfields@=\count270
+\andhelp@=\toks18
+\eqnshift@=\dimen142
+\alignsep@=\dimen143
+\tagshift@=\dimen144
+\tagwidth@=\dimen145
+\totwidth@=\dimen146
+\lineht@=\dimen147
+\@envbody=\toks19
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks20
+LaTeX Info: Redefining \[ on input line 2938.
+LaTeX Info: Redefining \] on input line 2939.
+) (/usr/share/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+(/usr/share/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (/usr/share/texmf-dist/tex/latex/lm/lmodern.sty
+Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/lmm/m/it on input line 23.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/lmsy/m/n on input line 24.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 25.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 26.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/lmm/b/it on input line 27.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/lmsy/b/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 31.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 32.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/lmr/m/it on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 36.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
+) (/usr/share/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+) (/usr/share/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 11
+2.
+(/usr/share/texmf-dist/tex/latex/lm/t1lmr.fd
+File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)) (/usr/share/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks21
+\inpenc@posthook=\toks22
+) (/usr/share/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+) (/usr/share/texmf-dist/tex/latex/upquote/upquote.sty
+Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
+tim
+) (/usr/share/texmf-dist/tex/latex/microtype/microtype.sty
+Package: microtype 2022/03/14 v3.0d Micro-typographical refinements (RS)
+(/usr/share/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks23
+) (/usr/share/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count271
+)
+\MT@toks=\toks24
+\MT@tempbox=\box52
+\MT@count=\count272
+LaTeX Info: Redefining \noprotrusionifhmode on input line 1027.
+LaTeX Info: Redefining \leftprotrusion on input line 1028.
+LaTeX Info: Redefining \rightprotrusion on input line 1036.
+LaTeX Info: Redefining \textls on input line 1195.
+\MT@outer@kern=\dimen148
+LaTeX Info: Redefining \textmicrotypecontext on input line 1781.
+\MT@listname@count=\count273
+(/usr/share/texmf-dist/tex/latex/microtype/microtype-pdftex.def
+File: microtype-pdftex.def 2022/03/14 v3.0d Definitions specific to pdftex (RS)
+
+LaTeX Info: Redefining \lsstyle on input line 900.
+LaTeX Info: Redefining \lslig on input line 900.
+\MT@outer@space=\skip52
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+(/usr/share/texmf-dist/tex/latex/microtype/microtype.cfg
+File: microtype.cfg 2022/03/14 v3.0d microtype main configuration file (RS)
+)) (/usr/share/texmf-dist/tex/latex/parskip/parskip.sty
+Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
+(/usr/share/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
+(/usr/share/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+) (/usr/share/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+))) (/usr/share/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
+(/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 227.
+(/usr/share/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1352.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1356.
+Package xcolor Info: Model `RGB' extended on input line 1368.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1370.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
+(/usr/share/texmf-dist/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
+) (/usr/share/texmf-dist/tex/latex/xcolor/svgnam.def
+File: svgnam.def 2021/10/31 v2.13 Predefined colors according to SVG 1.1 (UK)
+) (/usr/share/texmf-dist/tex/latex/xcolor/x11nam.def
+File: x11nam.def 2021/10/31 v2.13 Predefined colors according to Unix/X11 (UK)
+)) (/usr/share/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+(/usr/share/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+)
+\Gm@cnth=\count274
+\Gm@cntv=\count275
+\c@Gm@tempcnt=\count276
+\Gm@bindingoffset=\dimen149
+\Gm@wd@mp=\dimen150
+\Gm@odd@mp=\dimen151
+\Gm@even@mp=\dimen152
+\Gm@layoutwidth=\dimen153
+\Gm@layoutheight=\dimen154
+\Gm@layouthoffset=\dimen155
+\Gm@layoutvoffset=\dimen156
+\Gm@dimlist=\toks25
+) (/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+(/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
+(/usr/share/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+) (/usr/share/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+)
+\Gin@req@height=\dimen157
+\Gin@req@width=\dimen158
+) (/usr/share/texmf-dist/tex/latex/bookmark/bookmark.sty
+Package: bookmark 2020-11-06 v1.29 PDF bookmarks (HO)
+(/usr/share/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2022-02-21 v7.00n Hypertext links for LaTeX
+(/usr/share/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+(/usr/share/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+) (/usr/share/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+) (/usr/share/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+) (/usr/share/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+) (/usr/share/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+) (/usr/share/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+\@linkdim=\dimen159
+\Hy@linkcounter=\count277
+\Hy@pagecounter=\count278
+(/usr/share/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2022-02-21 v7.00n Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+) (/usr/share/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+) (/usr/share/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count279
+(/usr/share/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2022-02-21 v7.00n Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Option `unicode' set `true' on input line 4018.
+Package hyperref Info: Hyper figures OFF on input line 4137.
+Package hyperref Info: Link nesting OFF on input line 4142.
+Package hyperref Info: Hyper index ON on input line 4145.
+Package hyperref Info: Plain pages OFF on input line 4152.
+Package hyperref Info: Backreferencing OFF on input line 4157.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4390.
+\c@Hy@tempcnt=\count280
+(/usr/share/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4749.
+\XeTeXLinkMargin=\dimen160
+(/usr/share/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+(/usr/share/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count281
+\Field@Width=\dimen161
+\Fld@charsize=\dimen162
+Package hyperref Info: Hyper figures OFF on input line 6027.
+Package hyperref Info: Link nesting OFF on input line 6032.
+Package hyperref Info: Hyper index ON on input line 6035.
+Package hyperref Info: backreferencing OFF on input line 6042.
+Package hyperref Info: Link coloring OFF on input line 6047.
+Package hyperref Info: Link coloring with OCG OFF on input line 6052.
+Package hyperref Info: PDF/A mode OFF on input line 6057.
+LaTeX Info: Redefining \ref on input line 6097.
+LaTeX Info: Redefining \pageref on input line 6101.
+(/usr/share/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count282
+\c@Item=\count283
+\c@Hfootnote=\count284
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+(/usr/share/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2022-02-21 v7.00n Hyperref driver for pdfTeX
+(/usr/share/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
+with kernel methods
+)
+\Fld@listcount=\count285
+\c@bookmark@seq@number=\count286
+(/usr/share/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+(/usr/share/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+86.
+)
+\Hy@SectionHShift=\skip53
+) (/usr/share/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
+File: bkm-pdftex.def 2020-11-06 v1.29 bookmark driver for pdfTeX (HO)
+\BKM@id=\count287
+)) (/usr/share/texmf-dist/tex/latex/xurl/xurl.sty
+Package: xurl 2022/01/09 v 0.10 modify URL breaks
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 69.
+(/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-04-14 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count288
+\l__pdf_internal_box=\box53
+) (./sensitivity_figures.aux)
+\openout1 = `sensitivity_figures.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Info: Redefining \microtypecontext on input line 76.
+Package microtype Info: Applying patch `item' on input line 76.
+Package microtype Info: Applying patch `toc' on input line 76.
+Package microtype Info: Applying patch `eqnum' on input line 76.
+Package microtype Info: Applying patch `footnote' on input line 76.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using protrusion set `basicmath'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `alltext-nott'.
+LaTeX Info: Redefining \showhyphens on input line 76.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+(/usr/share/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
+(RS)
+) (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count289
+\scratchdimen=\dimen163
+\scratchbox=\box54
+\nofMPsegments=\count290
+\nofMParguments=\count291
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count292
+\MPscratchDim=\dimen164
+\MPnumerator=\count293
+\makeMPintoPDFobject=\count294
+\everyMPtoPDFconversion=\toks27
+) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+(/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
+* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=469.75502pt
+* \textheight=650.43001pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-37.0pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package hyperref Info: Link coloring ON on input line 76.
+(/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
+(/usr/share/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+) (/usr/share/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count295
+)
+LaTeX Info: Redefining \ref on input line 76.
+LaTeX Info: Redefining \pageref on input line 76.
+LaTeX Info: Redefining \nameref on input line 76.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 7
+8.
+(/usr/share/texmf-dist/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 7
+8.
+(/usr/share/texmf-dist/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
+78.
+(/usr/share/texmf-dist/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
+78.
+(/usr/share/texmf-dist/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 78.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 78.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 78.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 78.
+
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+) (/usr/share/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 78.
+
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) (/usr/share/texmf-dist/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+)
+<sensitivity_figures_files/figure-latex/plots-full-wZBL-k5-1.pdf, id=4, 896.348
+75pt x 1292.83pt>
+File: sensitivity_figures_files/figure-latex/plots-full-wZBL-k5-1.pdf Graphic f
+ile (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-full-wZBL-k5-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-full-wZBL
+-k5-1.pdf  used on input line 83.
+(pdftex.def)             Requested size: 450.94974pt x 650.418pt.
+
+LaTeX Warning: Float too large for page by 45.98799pt on input line 88.
+
+<sensitivity_figures_files/figure-latex/plots-full-wZBL-k15-1.pdf, id=5, 896.34
+875pt x 1292.83pt>
+File: sensitivity_figures_files/figure-latex/plots-full-wZBL-k15-1.pdf Graphic 
+file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-full-wZBL-k15-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-full-wZBL
+-k15-1.pdf  used on input line 92.
+(pdftex.def)             Requested size: 450.94974pt x 650.418pt.
+
+LaTeX Warning: Float too large for page by 45.98799pt on input line 97.
+
+<sensitivity_figures_files/figure-latex/plots-full-wZBL-k50-1.pdf, id=6, 896.34
+875pt x 1294.8375pt>
+File: sensitivity_figures_files/figure-latex/plots-full-wZBL-k50-1.pdf Graphic 
+file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-full-wZBL-k50-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-full-wZBL
+-k50-1.pdf  used on input line 101.
+(pdftex.def)             Requested size: 450.26588pt x 650.44008pt.
+
+LaTeX Warning: Float too large for page by 46.01007pt on input line 106.
+
+<sensitivity_figures_files/figure-latex/plots-full-wZBL-k250-1.pdf, id=7, 896.3
+4875pt x 1295.84125pt>
+File: sensitivity_figures_files/figure-latex/plots-full-wZBL-k250-1.pdf Graphic
+ file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-full-wZBL-k250-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-full-wZBL
+-k250-1.pdf  used on input line 110.
+(pdftex.def)             Requested size: 449.91028pt x 650.43019pt.
+
+LaTeX Warning: Float too large for page by 46.00018pt on input line 115.
+
+<sensitivity_figures_files/figure-latex/plots-full-wZBL-k500-1.pdf, id=8, 896.3
+4875pt x 1299.85625pt>
+File: sensitivity_figures_files/figure-latex/plots-full-wZBL-k500-1.pdf Graphic
+ file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-full-wZBL-k500-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-full-wZBL
+-k500-1.pdf  used on input line 119.
+(pdftex.def)             Requested size: 448.52888pt x 650.44223pt.
+
+LaTeX Warning: Float too large for page by 46.01222pt on input line 124.
+
+<sensitivity_figures_files/figure-latex/plots-noarchaeo-wZBL-k5-1.pdf, id=9, 89
+6.34875pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-noarchaeo-wZBL-k5-1.pdf Grap
+hic file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noarchaeo-wZBL-k5-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noarchaeo
+-wZBL-k5-1.pdf  used on input line 128.
+(pdftex.def)             Requested size: 450.60782pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 45.9994pt on input line 133.
+
+<sensitivity_figures_files/figure-latex/plots-noarchaeo-wZBL-k15-1.pdf, id=10, 
+896.34875pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-noarchaeo-wZBL-k15-1.pdf Gra
+phic file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noarchaeo-wZBL-k15-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noarchaeo
+-wZBL-k15-1.pdf  used on input line 137.
+(pdftex.def)             Requested size: 450.60782pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 45.9994pt on input line 142.
+
+<sensitivity_figures_files/figure-latex/plots-noarchaeo-wZBL-k50-1.pdf, id=11, 
+896.34875pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-noarchaeo-wZBL-k50-1.pdf Gra
+phic file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noarchaeo-wZBL-k50-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noarchaeo
+-wZBL-k50-1.pdf  used on input line 146.
+(pdftex.def)             Requested size: 450.60782pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 45.9994pt on input line 151.
+
+<sensitivity_figures_files/figure-latex/plots-noarchaeo-wZBL-k250-1.pdf, id=12,
+ 896.34875pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-noarchaeo-wZBL-k250-1.pdf Gr
+aphic file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noarchaeo-wZBL-k250-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noarchaeo
+-wZBL-k250-1.pdf  used on input line 155.
+(pdftex.def)             Requested size: 450.60782pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 45.9994pt on input line 160.
+
+<sensitivity_figures_files/figure-latex/plots-noarchaeo-wZBL-k500-1.pdf, id=13,
+ 896.34875pt x 1295.84125pt>
+File: sensitivity_figures_files/figure-latex/plots-noarchaeo-wZBL-k500-1.pdf Gr
+aphic file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noarchaeo-wZBL-k500-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noarchaeo
+-wZBL-k500-1.pdf  used on input line 164.
+(pdftex.def)             Requested size: 449.91028pt x 650.43019pt.
+
+LaTeX Warning: Float too large for page by 47.94461pt on input line 169.
+
+<sensitivity_figures_files/figure-latex/plots-noimput-wZBL-k5-1.pdf, id=14, 884
+.30376pt x 1292.83pt>
+File: sensitivity_figures_files/figure-latex/plots-noimput-wZBL-k5-1.pdf Graphi
+c file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noimput-wZBL-k5-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noimput-w
+ZBL-k5-1.pdf  used on input line 173.
+(pdftex.def)             Requested size: 444.88995pt x 650.418pt.
+
+LaTeX Warning: Float too large for page by 45.98799pt on input line 178.
+
+<sensitivity_figures_files/figure-latex/plots-noimput-wZBL-k15-1.pdf, id=15, 88
+4.30376pt x 1292.83pt>
+File: sensitivity_figures_files/figure-latex/plots-noimput-wZBL-k15-1.pdf Graph
+ic file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noimput-wZBL-k15-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noimput-w
+ZBL-k15-1.pdf  used on input line 182.
+(pdftex.def)             Requested size: 444.88995pt x 650.418pt.
+
+LaTeX Warning: Float too large for page by 45.98799pt on input line 187.
+
+<sensitivity_figures_files/figure-latex/plots-noimput-wZBL-k50-1.pdf, id=16, 88
+4.30376pt x 1292.83pt>
+File: sensitivity_figures_files/figure-latex/plots-noimput-wZBL-k50-1.pdf Graph
+ic file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noimput-wZBL-k50-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noimput-w
+ZBL-k50-1.pdf  used on input line 191.
+(pdftex.def)             Requested size: 444.88995pt x 650.418pt.
+
+LaTeX Warning: Float too large for page by 45.98799pt on input line 196.
+
+<sensitivity_figures_files/figure-latex/plots-noimput-wZBL-k250-1.pdf, id=17, 8
+84.30376pt x 1295.84125pt>
+File: sensitivity_figures_files/figure-latex/plots-noimput-wZBL-k250-1.pdf Grap
+hic file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noimput-wZBL-k250-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noimput-w
+ZBL-k250-1.pdf  used on input line 200.
+(pdftex.def)             Requested size: 443.86446pt x 650.43019pt.
+
+LaTeX Warning: Float too large for page by 46.00018pt on input line 205.
+
+<sensitivity_figures_files/figure-latex/plots-noimput-wZBL-k500-1.pdf, id=18, 8
+84.30376pt x 1299.85625pt>
+File: sensitivity_figures_files/figure-latex/plots-noimput-wZBL-k500-1.pdf Grap
+hic file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noimput-wZBL-k500-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noimput-w
+ZBL-k500-1.pdf  used on input line 209.
+(pdftex.def)             Requested size: 442.50162pt x 650.44223pt.
+
+LaTeX Warning: Float too large for page by 46.01222pt on input line 214.
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.216 \clearpage
+                 [2 <./sensitivity_figures_files/figure-latex/plots-full-wZBL-k
+5-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.216 \clearpage
+                 [3 <./sensitivity_figures_files/figure-latex/plots-full-wZBL-k
+15-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.216 \clearpage
+                 [4 <./sensitivity_figures_files/figure-latex/plots-full-wZBL-k
+50-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.216 \clearpage
+                 [5 <./sensitivity_figures_files/figure-latex/plots-full-wZBL-k
+250-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.216 \clearpage
+                 [6 <./sensitivity_figures_files/figure-latex/plots-full-wZBL-k
+500-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.216 \clearpage
+                 [7 <./sensitivity_figures_files/figure-latex/plots-noarchaeo-w
+ZBL-k5-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.216 \clearpage
+                 [8 <./sensitivity_figures_files/figure-latex/plots-noarchaeo-w
+ZBL-k15-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.216 \clearpage
+                 [9 <./sensitivity_figures_files/figure-latex/plots-noarchaeo-w
+ZBL-k50-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.216 \clearpage
+                 [10 <./sensitivity_figures_files/figure-latex/plots-noarchaeo-
+wZBL-k250-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.216 \clearpage
+                 [11 <./sensitivity_figures_files/figure-latex/plots-noarchaeo-
+wZBL-k500-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.216 \clearpage
+                 [12 <./sensitivity_figures_files/figure-latex/plots-noimput-wZ
+BL-k5-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.216 \clearpage
+                 [13 <./sensitivity_figures_files/figure-latex/plots-noimput-wZ
+BL-k15-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.216 \clearpage
+                 [14 <./sensitivity_figures_files/figure-latex/plots-noimput-wZ
+BL-k50-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.216 \clearpage
+                 [15 <./sensitivity_figures_files/figure-latex/plots-noimput-wZ
+BL-k250-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.216 \clearpage
+                 [16 <./sensitivity_figures_files/figure-latex/plots-noimput-wZ
+BL-k500-1.pdf>]
+<sensitivity_figures_files/figure-latex/plots-noextant-wZBL-k5-1.pdf, id=213, 8
+22.07124pt x 1292.83pt>
+File: sensitivity_figures_files/figure-latex/plots-noextant-wZBL-k5-1.pdf Graph
+ic file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noextant-wZBL-k5-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noextant-
+wZBL-k5-1.pdf  used on input line 220.
+(pdftex.def)             Requested size: 413.581pt x 650.418pt.
+
+LaTeX Warning: Float too large for page by 45.98799pt on input line 225.
+
+<sensitivity_figures_files/figure-latex/plots-noextant-wZBL-k15-1.pdf, id=214, 
+822.07124pt x 1292.83pt>
+File: sensitivity_figures_files/figure-latex/plots-noextant-wZBL-k15-1.pdf Grap
+hic file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noextant-wZBL-k15-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noextant-
+wZBL-k15-1.pdf  used on input line 229.
+(pdftex.def)             Requested size: 413.581pt x 650.418pt.
+
+LaTeX Warning: Float too large for page by 45.98799pt on input line 234.
+
+<sensitivity_figures_files/figure-latex/plots-noextant-wZBL-k50-1.pdf, id=215, 
+822.07124pt x 1292.83pt>
+File: sensitivity_figures_files/figure-latex/plots-noextant-wZBL-k50-1.pdf Grap
+hic file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noextant-wZBL-k50-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noextant-
+wZBL-k50-1.pdf  used on input line 238.
+(pdftex.def)             Requested size: 413.581pt x 650.418pt.
+
+LaTeX Warning: Float too large for page by 45.98799pt on input line 243.
+
+<sensitivity_figures_files/figure-latex/plots-noextant-wZBL-k250-1.pdf, id=216,
+ 822.07124pt x 1294.8375pt>
+File: sensitivity_figures_files/figure-latex/plots-noextant-wZBL-k250-1.pdf Gra
+phic file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noextant-wZBL-k250-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noextant-
+wZBL-k250-1.pdf  used on input line 247.
+(pdftex.def)             Requested size: 412.95381pt x 650.44008pt.
+
+LaTeX Warning: Float too large for page by 46.01007pt on input line 252.
+
+<sensitivity_figures_files/figure-latex/plots-noextant-wZBL-k500-1.pdf, id=217,
+ 822.07124pt x 1299.85625pt>
+File: sensitivity_figures_files/figure-latex/plots-noextant-wZBL-k500-1.pdf Gra
+phic file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noextant-wZBL-k500-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noextant-
+wZBL-k500-1.pdf  used on input line 256.
+(pdftex.def)             Requested size: 411.36075pt x 650.44223pt.
+
+LaTeX Warning: Float too large for page by 46.01222pt on input line 261.
+
+<sensitivity_figures_files/figure-latex/plots-baleen-wZBL-k5-1.pdf, id=218, 900
+.36375pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-baleen-wZBL-k5-1.pdf Graphic
+ file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-baleen-wZBL-k5-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-baleen-wZ
+BL-k5-1.pdf  used on input line 265.
+(pdftex.def)             Requested size: 452.6262pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 45.9994pt on input line 270.
+
+<sensitivity_figures_files/figure-latex/plots-baleen-wZBL-k15-1.pdf, id=219, 90
+0.36375pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-baleen-wZBL-k15-1.pdf Graphi
+c file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-baleen-wZBL-k15-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-baleen-wZ
+BL-k15-1.pdf  used on input line 274.
+(pdftex.def)             Requested size: 452.6262pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 45.9994pt on input line 279.
+
+<sensitivity_figures_files/figure-latex/plots-baleen-wZBL-k50-1.pdf, id=220, 90
+0.36375pt x 1299.85625pt>
+File: sensitivity_figures_files/figure-latex/plots-baleen-wZBL-k50-1.pdf Graphi
+c file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-baleen-wZBL-k50-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-baleen-wZ
+BL-k50-1.pdf  used on input line 283.
+(pdftex.def)             Requested size: 450.53796pt x 650.44223pt.
+
+LaTeX Warning: Float too large for page by 46.01222pt on input line 288.
+
+<sensitivity_figures_files/figure-latex/plots-toothed-wZBL-k5-1.pdf, id=221, 89
+6.34875pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-toothed-wZBL-k5-1.pdf Graphi
+c file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-toothed-wZBL-k5-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-toothed-w
+ZBL-k5-1.pdf  used on input line 292.
+(pdftex.def)             Requested size: 450.60782pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 45.9994pt on input line 297.
+
+<sensitivity_figures_files/figure-latex/plots-toothed-wZBL-k15-1.pdf, id=222, 8
+96.34875pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-toothed-wZBL-k15-1.pdf Graph
+ic file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-toothed-wZBL-k15-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-toothed-w
+ZBL-k15-1.pdf  used on input line 301.
+(pdftex.def)             Requested size: 450.60782pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 45.9994pt on input line 306.
+
+<sensitivity_figures_files/figure-latex/plots-toothed-wZBL-k50-1.pdf, id=223, 8
+96.34875pt x 1299.85625pt>
+File: sensitivity_figures_files/figure-latex/plots-toothed-wZBL-k50-1.pdf Graph
+ic file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-toothed-wZBL-k50-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-toothed-w
+ZBL-k50-1.pdf  used on input line 310.
+(pdftex.def)             Requested size: 448.52888pt x 650.44223pt.
+
+LaTeX Warning: Float too large for page by 46.01222pt on input line 315.
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.317 \clearpage
+                 [17 <./sensitivity_figures_files/figure-latex/plots-noextant-w
+ZBL-k5-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.317 \clearpage
+                 [18 <./sensitivity_figures_files/figure-latex/plots-noextant-w
+ZBL-k15-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.317 \clearpage
+                 [19 <./sensitivity_figures_files/figure-latex/plots-noextant-w
+ZBL-k50-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.317 \clearpage
+                 [20 <./sensitivity_figures_files/figure-latex/plots-noextant-w
+ZBL-k250-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.317 \clearpage
+                 [21 <./sensitivity_figures_files/figure-latex/plots-noextant-w
+ZBL-k500-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.317 \clearpage
+                 [22 <./sensitivity_figures_files/figure-latex/plots-baleen-wZB
+L-k5-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.317 \clearpage
+                 [23 <./sensitivity_figures_files/figure-latex/plots-baleen-wZB
+L-k15-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.317 \clearpage
+                 [24 <./sensitivity_figures_files/figure-latex/plots-baleen-wZB
+L-k50-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.317 \clearpage
+                 [25 <./sensitivity_figures_files/figure-latex/plots-toothed-wZ
+BL-k5-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.317 \clearpage
+                 [26 <./sensitivity_figures_files/figure-latex/plots-toothed-wZ
+BL-k15-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.317 \clearpage
+                 [27 <./sensitivity_figures_files/figure-latex/plots-toothed-wZ
+BL-k50-1.pdf>]
+<sensitivity_figures_files/figure-latex/plots-full-k5-1.pdf, id=359, 896.34875p
+t x 1292.83pt>
+File: sensitivity_figures_files/figure-latex/plots-full-k5-1.pdf Graphic file (
+type pdf)
+<use sensitivity_figures_files/figure-latex/plots-full-k5-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-full-k5-1
+.pdf  used on input line 321.
+(pdftex.def)             Requested size: 450.94974pt x 650.418pt.
+
+LaTeX Warning: Float too large for page by 45.98799pt on input line 326.
+
+<sensitivity_figures_files/figure-latex/plots-full-k15-1.pdf, id=360, 896.34875
+pt x 1292.83pt>
+File: sensitivity_figures_files/figure-latex/plots-full-k15-1.pdf Graphic file 
+(type pdf)
+<use sensitivity_figures_files/figure-latex/plots-full-k15-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-full-k15-
+1.pdf  used on input line 330.
+(pdftex.def)             Requested size: 450.94974pt x 650.418pt.
+
+LaTeX Warning: Float too large for page by 45.98799pt on input line 335.
+
+<sensitivity_figures_files/figure-latex/plots-full-k50-1.pdf, id=361, 896.34875
+pt x 1292.83pt>
+File: sensitivity_figures_files/figure-latex/plots-full-k50-1.pdf Graphic file 
+(type pdf)
+<use sensitivity_figures_files/figure-latex/plots-full-k50-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-full-k50-
+1.pdf  used on input line 339.
+(pdftex.def)             Requested size: 450.94974pt x 650.418pt.
+
+LaTeX Warning: Float too large for page by 45.98799pt on input line 344.
+
+<sensitivity_figures_files/figure-latex/plots-full-k250-1.pdf, id=362, 896.3487
+5pt x 1292.83pt>
+File: sensitivity_figures_files/figure-latex/plots-full-k250-1.pdf Graphic file
+ (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-full-k250-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-full-k250
+-1.pdf  used on input line 348.
+(pdftex.def)             Requested size: 450.94974pt x 650.418pt.
+
+LaTeX Warning: Float too large for page by 45.98799pt on input line 353.
+
+<sensitivity_figures_files/figure-latex/plots-full-k500-1.pdf, id=363, 896.3487
+5pt x 1299.85625pt>
+File: sensitivity_figures_files/figure-latex/plots-full-k500-1.pdf Graphic file
+ (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-full-k500-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-full-k500
+-1.pdf  used on input line 357.
+(pdftex.def)             Requested size: 448.52888pt x 650.44223pt.
+
+LaTeX Warning: Float too large for page by 46.01222pt on input line 362.
+
+<sensitivity_figures_files/figure-latex/plots-noarchaeo-k5-1.pdf, id=364, 896.3
+4875pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-noarchaeo-k5-1.pdf Graphic f
+ile (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noarchaeo-k5-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noarchaeo
+-k5-1.pdf  used on input line 366.
+(pdftex.def)             Requested size: 450.60782pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 45.9994pt on input line 371.
+
+<sensitivity_figures_files/figure-latex/plots-noarchaeo-k15-1.pdf, id=365, 896.
+34875pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-noarchaeo-k15-1.pdf Graphic 
+file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noarchaeo-k15-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noarchaeo
+-k15-1.pdf  used on input line 375.
+(pdftex.def)             Requested size: 450.60782pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 47.94383pt on input line 380.
+
+<sensitivity_figures_files/figure-latex/plots-noarchaeo-k50-1.pdf, id=366, 896.
+34875pt x 1295.84125pt>
+File: sensitivity_figures_files/figure-latex/plots-noarchaeo-k50-1.pdf Graphic 
+file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noarchaeo-k50-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noarchaeo
+-k50-1.pdf  used on input line 384.
+(pdftex.def)             Requested size: 449.91028pt x 650.43019pt.
+
+LaTeX Warning: Float too large for page by 47.94461pt on input line 389.
+
+<sensitivity_figures_files/figure-latex/plots-noarchaeo-k250-1.pdf, id=367, 896
+.34875pt x 1295.84125pt>
+File: sensitivity_figures_files/figure-latex/plots-noarchaeo-k250-1.pdf Graphic
+ file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noarchaeo-k250-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noarchaeo
+-k250-1.pdf  used on input line 393.
+(pdftex.def)             Requested size: 449.91028pt x 650.43019pt.
+
+LaTeX Warning: Float too large for page by 47.94461pt on input line 398.
+
+<sensitivity_figures_files/figure-latex/plots-noarchaeo-k500-1.pdf, id=368, 896
+.34875pt x 1299.85625pt>
+File: sensitivity_figures_files/figure-latex/plots-noarchaeo-k500-1.pdf Graphic
+ file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noarchaeo-k500-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noarchaeo
+-k500-1.pdf  used on input line 402.
+(pdftex.def)             Requested size: 448.52888pt x 650.44223pt.
+
+LaTeX Warning: Float too large for page by 47.95665pt on input line 407.
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.409 \clearpage
+                 [28 <./sensitivity_figures_files/figure-latex/plots-full-k5-1.
+pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.409 \clearpage
+                 [29 <./sensitivity_figures_files/figure-latex/plots-full-k15-1
+.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.409 \clearpage
+                 [30 <./sensitivity_figures_files/figure-latex/plots-full-k50-1
+.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.409 \clearpage
+                 [31 <./sensitivity_figures_files/figure-latex/plots-full-k250-
+1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.409 \clearpage
+                 [32 <./sensitivity_figures_files/figure-latex/plots-full-k500-
+1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.409 \clearpage
+                 [33 <./sensitivity_figures_files/figure-latex/plots-noarchaeo-
+k5-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.409 \clearpage
+                 [34 <./sensitivity_figures_files/figure-latex/plots-noarchaeo-
+k15-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.409 \clearpage
+                 [35 <./sensitivity_figures_files/figure-latex/plots-noarchaeo-
+k50-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.409 \clearpage
+                 [36 <./sensitivity_figures_files/figure-latex/plots-noarchaeo-
+k250-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.409 \clearpage
+                 [37 <./sensitivity_figures_files/figure-latex/plots-noarchaeo-
+k500-1.pdf>]
+<sensitivity_figures_files/figure-latex/plots-noimput-k5-1.pdf, id=492, 896.348
+75pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-noimput-k5-1.pdf Graphic fil
+e (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noimput-k5-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noimput-k
+5-1.pdf  used on input line 413.
+(pdftex.def)             Requested size: 450.60782pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 45.9994pt on input line 418.
+
+<sensitivity_figures_files/figure-latex/plots-noimput-k15-1.pdf, id=493, 896.34
+875pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-noimput-k15-1.pdf Graphic fi
+le (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noimput-k15-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noimput-k
+15-1.pdf  used on input line 422.
+(pdftex.def)             Requested size: 450.60782pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 45.9994pt on input line 427.
+
+<sensitivity_figures_files/figure-latex/plots-noimput-k50-1.pdf, id=494, 896.34
+875pt x 1295.84125pt>
+File: sensitivity_figures_files/figure-latex/plots-noimput-k50-1.pdf Graphic fi
+le (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noimput-k50-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noimput-k
+50-1.pdf  used on input line 431.
+(pdftex.def)             Requested size: 449.91028pt x 650.43019pt.
+
+LaTeX Warning: Float too large for page by 46.00018pt on input line 436.
+
+<sensitivity_figures_files/figure-latex/plots-noimput-k250-1.pdf, id=495, 896.3
+4875pt x 1295.84125pt>
+File: sensitivity_figures_files/figure-latex/plots-noimput-k250-1.pdf Graphic f
+ile (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noimput-k250-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noimput-k
+250-1.pdf  used on input line 440.
+(pdftex.def)             Requested size: 449.91028pt x 650.43019pt.
+
+LaTeX Warning: Float too large for page by 46.00018pt on input line 445.
+
+<sensitivity_figures_files/figure-latex/plots-noimput-k500-1.pdf, id=496, 896.3
+4875pt x 1295.84125pt>
+File: sensitivity_figures_files/figure-latex/plots-noimput-k500-1.pdf Graphic f
+ile (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noimput-k500-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noimput-k
+500-1.pdf  used on input line 449.
+(pdftex.def)             Requested size: 449.91028pt x 650.43019pt.
+
+LaTeX Warning: Float too large for page by 46.00018pt on input line 454.
+
+<sensitivity_figures_files/figure-latex/plots-noextant-k5-1.pdf, id=497, 822.07
+124pt x 1292.83pt>
+File: sensitivity_figures_files/figure-latex/plots-noextant-k5-1.pdf Graphic fi
+le (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noextant-k5-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noextant-
+k5-1.pdf  used on input line 458.
+(pdftex.def)             Requested size: 413.581pt x 650.418pt.
+
+LaTeX Warning: Float too large for page by 45.98799pt on input line 463.
+
+<sensitivity_figures_files/figure-latex/plots-noextant-k15-1.pdf, id=498, 822.0
+7124pt x 1292.83pt>
+File: sensitivity_figures_files/figure-latex/plots-noextant-k15-1.pdf Graphic f
+ile (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noextant-k15-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noextant-
+k15-1.pdf  used on input line 467.
+(pdftex.def)             Requested size: 413.581pt x 650.418pt.
+
+LaTeX Warning: Float too large for page by 45.98799pt on input line 472.
+
+<sensitivity_figures_files/figure-latex/plots-noextant-k50-1.pdf, id=499, 822.0
+7124pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-noextant-k50-1.pdf Graphic f
+ile (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noextant-k50-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noextant-
+k50-1.pdf  used on input line 476.
+(pdftex.def)             Requested size: 413.2674pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 45.9994pt on input line 481.
+
+<sensitivity_figures_files/figure-latex/plots-noextant-k250-1.pdf, id=500, 822.
+07124pt x 1292.83pt>
+File: sensitivity_figures_files/figure-latex/plots-noextant-k250-1.pdf Graphic 
+file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noextant-k250-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noextant-
+k250-1.pdf  used on input line 485.
+(pdftex.def)             Requested size: 413.581pt x 650.418pt.
+
+LaTeX Warning: Float too large for page by 45.98799pt on input line 490.
+
+<sensitivity_figures_files/figure-latex/plots-noextant-k500-1.pdf, id=501, 822.
+07124pt x 1299.85625pt>
+File: sensitivity_figures_files/figure-latex/plots-noextant-k500-1.pdf Graphic 
+file (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-noextant-k500-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-noextant-
+k500-1.pdf  used on input line 494.
+(pdftex.def)             Requested size: 411.36075pt x 650.44223pt.
+
+LaTeX Warning: Float too large for page by 46.01222pt on input line 499.
+
+<sensitivity_figures_files/figure-latex/plots-baleen-k5-1.pdf, id=502, 900.3637
+5pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-baleen-k5-1.pdf Graphic file
+ (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-baleen-k5-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-baleen-k5
+-1.pdf  used on input line 503.
+(pdftex.def)             Requested size: 452.6262pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 45.9994pt on input line 508.
+
+<sensitivity_figures_files/figure-latex/plots-baleen-k15-1.pdf, id=503, 900.363
+75pt x 1299.85625pt>
+File: sensitivity_figures_files/figure-latex/plots-baleen-k15-1.pdf Graphic fil
+e (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-baleen-k15-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-baleen-k1
+5-1.pdf  used on input line 512.
+(pdftex.def)             Requested size: 450.53796pt x 650.44223pt.
+
+LaTeX Warning: Float too large for page by 46.01222pt on input line 517.
+
+<sensitivity_figures_files/figure-latex/plots-baleen-k50-1.pdf, id=504, 900.363
+75pt x 1299.85625pt>
+File: sensitivity_figures_files/figure-latex/plots-baleen-k50-1.pdf Graphic fil
+e (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-baleen-k50-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-baleen-k5
+0-1.pdf  used on input line 521.
+(pdftex.def)             Requested size: 450.53796pt x 650.44223pt.
+
+LaTeX Warning: Float too large for page by 46.01222pt on input line 526.
+
+<sensitivity_figures_files/figure-latex/plots-toothed-k5-1.pdf, id=505, 896.348
+75pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-toothed-k5-1.pdf Graphic fil
+e (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-toothed-k5-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-toothed-k
+5-1.pdf  used on input line 530.
+(pdftex.def)             Requested size: 450.60782pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 45.9994pt on input line 535.
+
+<sensitivity_figures_files/figure-latex/plots-toothed-k15-1.pdf, id=506, 896.34
+875pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-toothed-k15-1.pdf Graphic fi
+le (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-toothed-k15-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-toothed-k
+15-1.pdf  used on input line 539.
+(pdftex.def)             Requested size: 450.60782pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 45.9994pt on input line 544.
+
+<sensitivity_figures_files/figure-latex/plots-toothed-k50-1.pdf, id=507, 896.34
+875pt x 1299.85625pt>
+File: sensitivity_figures_files/figure-latex/plots-toothed-k50-1.pdf Graphic fi
+le (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-toothed-k50-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-toothed-k
+50-1.pdf  used on input line 548.
+(pdftex.def)             Requested size: 448.52888pt x 650.44223pt.
+
+LaTeX Warning: Float too large for page by 46.01222pt on input line 553.
+
+<sensitivity_figures_files/figure-latex/plots-extant-k5-1.pdf, id=508, 896.3487
+5pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-extant-k5-1.pdf Graphic file
+ (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-extant-k5-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-extant-k5
+-1.pdf  used on input line 557.
+(pdftex.def)             Requested size: 450.60782pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 45.9994pt on input line 562.
+
+<sensitivity_figures_files/figure-latex/plots-extant-k15-1.pdf, id=509, 896.348
+75pt x 1293.83376pt>
+File: sensitivity_figures_files/figure-latex/plots-extant-k15-1.pdf Graphic fil
+e (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-extant-k15-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-extant-k1
+5-1.pdf  used on input line 566.
+(pdftex.def)             Requested size: 450.60782pt x 650.42941pt.
+
+LaTeX Warning: Float too large for page by 45.9994pt on input line 571.
+
+<sensitivity_figures_files/figure-latex/plots-extant-k50-1.pdf, id=510, 896.348
+75pt x 1299.85625pt>
+File: sensitivity_figures_files/figure-latex/plots-extant-k50-1.pdf Graphic fil
+e (type pdf)
+<use sensitivity_figures_files/figure-latex/plots-extant-k50-1.pdf>
+Package pdftex.def Info: sensitivity_figures_files/figure-latex/plots-extant-k5
+0-1.pdf  used on input line 575.
+(pdftex.def)             Requested size: 448.52888pt x 650.44223pt.
+
+LaTeX Warning: Float too large for page by 46.01222pt on input line 580.
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [38 <./sensitivity_figures_files/figure-latex/plots-noimput-k5
+-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [39 <./sensitivity_figures_files/figure-latex/plots-noimput-k1
+5-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [40 <./sensitivity_figures_files/figure-latex/plots-noimput-k5
+0-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [41 <./sensitivity_figures_files/figure-latex/plots-noimput-k2
+50-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [42 <./sensitivity_figures_files/figure-latex/plots-noimput-k5
+00-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [43 <./sensitivity_figures_files/figure-latex/plots-noextant-k
+5-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [44 <./sensitivity_figures_files/figure-latex/plots-noextant-k
+15-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [45 <./sensitivity_figures_files/figure-latex/plots-noextant-k
+50-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [46 <./sensitivity_figures_files/figure-latex/plots-noextant-k
+250-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [47 <./sensitivity_figures_files/figure-latex/plots-noextant-k
+500-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [48 <./sensitivity_figures_files/figure-latex/plots-baleen-k5-
+1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [49 <./sensitivity_figures_files/figure-latex/plots-baleen-k15
+-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [50 <./sensitivity_figures_files/figure-latex/plots-baleen-k50
+-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [51 <./sensitivity_figures_files/figure-latex/plots-toothed-k5
+-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [52 <./sensitivity_figures_files/figure-latex/plots-toothed-k1
+5-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [53 <./sensitivity_figures_files/figure-latex/plots-toothed-k5
+0-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [54 <./sensitivity_figures_files/figure-latex/plots-extant-k5-
+1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [55 <./sensitivity_figures_files/figure-latex/plots-extant-k15
+-1.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.582 \clearpage
+                 [56 <./sensitivity_figures_files/figure-latex/plots-extant-k50
+-1.pdf>] (./sensitivity_figures.aux) ) 
+Here is how much of TeX's memory you used:
+ 14045 strings out of 478238
+ 240014 string characters out of 5850455
+ 572500 words of memory out of 5000000
+ 31892 multiletter control sequences out of 15000+600000
+ 505963 words of font info for 90 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 74i,6n,77p,1016b,338s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf-dist/fonts/enc/dvips/lm
+/lm-ec.enc}</usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/
+texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf-dist/fonts/type1/p
+ublic/lm/lmr12.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr17.pfb></usr
+/share/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf-dist/fonts
+/type1/public/lm/lmri12.pfb>
+Output written on sensitivity_figures.pdf (56 pages, 1213145 bytes).
+PDF statistics:
+ 788 PDF objects out of 1000 (max. 8388607)
+ 547 compressed objects within 6 object streams
+ 57 named destinations out of 1000 (max. 500000)
+ 18708 words of extra memory for PDF output out of 20736 (max. 10000000)
+
