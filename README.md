@@ -1,5 +1,9 @@
-# Body size shows a flat adaptive landscape in fossil and living cetaceans
-## (Ocean giants evolved under turbulent adaptive waters)
+---
+# Build settings
+theme: slate
+---
+
+# The dynamic adaptive landscape of cetacean body size
 
 Authors: [Gustavo Burin\*](gustavo.burin@nhm.ac.uk), Travis Park\*, Tamora D. James, Graham J. Slater, [Natalie Cooper](natalie.cooper@nhm.ac.uk)
 
