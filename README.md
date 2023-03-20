@@ -37,7 +37,7 @@ The analysis code is divided into subfolders, one for each dataset used. The res
 ## Session Info
 
 ```
-R version 4.2.2 (2022-10-31)
+R version 4.1.2 (2021-11-01)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Manjaro Linux
 
