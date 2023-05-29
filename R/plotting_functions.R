@@ -342,6 +342,8 @@ get_branch_par <- function(i, tree, dt, chain, par, stat = "median"){
                 return(apply(res, 2, stats::median))
             } else if(stat == "hpd"){
                 return(apply(res, 2, stats::quantile, probs = c(0.025, 0.975)))
+            } else if(stat == "dist"){
+                return(res)
             }
         }
         else {
